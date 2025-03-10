@@ -1,4 +1,4 @@
-package ro.unibuc.hello.controller;
+package ro.unibuc.careerquest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ro.unibuc.hello.dto.User;
-import ro.unibuc.hello.dto.UserCreation;
-import ro.unibuc.hello.exception.InvalidEmailException;
-import ro.unibuc.hello.exception.UsernameTakenException;
-import ro.unibuc.hello.exception.UserNotFoundException;
-import ro.unibuc.hello.service.UserService;
+import ro.unibuc.careerquest.dto.User;
+import ro.unibuc.careerquest.dto.UserCreation;
+import ro.unibuc.careerquest.exception.InvalidEmailException;
+import ro.unibuc.careerquest.exception.UsernameTakenException;
+import ro.unibuc.careerquest.exception.UserNotFoundException;
+import ro.unibuc.careerquest.service.UserService;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -52,7 +52,7 @@ public class UserController {
         return userService.updateCredentials(id, user);
     }
 
-    /*@PutMapping("/user/{id}")
+    @PutMapping("/user/{id}")
     @ResponseBody
     public User updateUser(@PathVariable String id, @RequestBody User user) throws UserNotFoundException {
         return userService.updateUser(id, user);
@@ -64,7 +64,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @GetMapping("/cv/{id}")
+    /*@GetMapping("/cv/{id}")
     @ResponseBody
     public String getCV(@PathVariable String id) throws UserNotFoundException {
         return userService.getCV(id);

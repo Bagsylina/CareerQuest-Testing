@@ -1,4 +1,4 @@
-package ro.unibuc.hello.dto;
+package ro.unibuc.careerquest.dto;
 
 public class UserCreation {
     

@@ -1,35 +1,39 @@
-package ro.unibuc.hello.dto;
+package ro.unibuc.careerquest.data;
 
-import java.time.Period;
 import java.time.LocalDate;
 
-public class User {
+import org.springframework.data.annotation.Id;
 
+public class UserEntity {
+    
+    @Id
     private String username;
+    private String password;
 
     private String description;
 
+    private String fullName;
     private String firstName;
     private String lastName;
-    private String fullName;
 
     private LocalDate birthdate;
-    private int age;
     
     private String email;
     private String phone;
 
     private String CV;
 
-    public User() {}
+    public UserEntity() {}
 
-    public User(String username, String email) {
+    public UserEntity(String username, String password, String email) {
         this.username = username;
+        this.password = password;
         this.email = email;
-    }
+    } 
 
-    public User(String username, String description, String firstName, String lastName, LocalDate birthdate, String email, String phone) {
+    public UserEntity(String username, String password, String description, String firstName, String lastName, LocalDate birthdate, String email, String phone) {
         this.username = username;
+        this.password = password;
         this.description = description;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,8 +44,15 @@ public class User {
     }
 
     public String getUsername() {return username;}
-    
-    public String getName() {return fullName;}
+
+    public void setPassword(String password) {this.password = password;} 
+    public boolean validatePassword(String password) {
+        if(this.password.equals(password))
+            return true;
+        return false;
+    } 
+
+    public String getFullName() {return fullName;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
     public void setFirstName(String firstName) {
@@ -57,16 +68,7 @@ public class User {
     public void setDescription(String description) {this.description = description;}
 
     public LocalDate getBirthdate() {return birthdate;}
-    public int getAge() {return age;}
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-        if(birthdate != null) {
-            LocalDate currentDate = LocalDate.now();
-            this.age = Period.between(birthdate, currentDate).getYears();
-        }
-        else
-            this.age = 0;
-    } 
+    public void setBirthdate(LocalDate birthdate) {this.birthdate = birthdate;} 
 
     public String getEmail() {return email;}
     public String getPhone() {return phone;}

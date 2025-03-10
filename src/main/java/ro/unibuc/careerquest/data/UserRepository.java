@@ -1,4 +1,4 @@
-package ro.unibuc.hello.data;
+package ro.unibuc.careerquest.data;
 
 import java.util.List;
 

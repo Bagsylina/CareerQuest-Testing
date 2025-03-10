@@ -1,4 +1,4 @@
-/*package ro.unibuc.careerquest;
+package ro.unibuc.careerquest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -24,4 +24,4 @@ public class CareerQuestApplication {
 	public void runAfterObjectCreated() {
 		userRepository.deleteAll();
 	}
-}*/
+}

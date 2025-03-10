@@ -1,4 +1,4 @@
-package ro.unibuc.hello.service;
+package ro.unibuc.careerquest.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ro.unibuc.hello.data.UserRepository;
-import ro.unibuc.hello.data.UserEntity;
-import ro.unibuc.hello.dto.User;
-import ro.unibuc.hello.dto.UserCreation;
-import ro.unibuc.hello.exception.InvalidEmailException;
-import ro.unibuc.hello.exception.UserNotFoundException;
-import ro.unibuc.hello.exception.UsernameTakenException;
+import ro.unibuc.careerquest.data.UserRepository;
+import ro.unibuc.careerquest.data.UserEntity;
+import ro.unibuc.careerquest.dto.User;
+import ro.unibuc.careerquest.dto.UserCreation;
+import ro.unibuc.careerquest.exception.InvalidEmailException;
+import ro.unibuc.careerquest.exception.UserNotFoundException;
+import ro.unibuc.careerquest.exception.UsernameTakenException;
+import ro.unibuc.hello.exception.EntityNotFoundException;
 
 public class UserService {
     
@@ -70,7 +71,7 @@ public class UserService {
         Optional<UserEntity> optionalUser = userRepository.findById(username);
         UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
 
-        if(credentials.getEmail() != "") {
+        if(credentials.getEmail() != null) {
             boolean validEmail = Pattern.compile(emailRegex)
                                         .matcher(credentials.getEmail())
                                         .matches();
@@ -81,10 +82,40 @@ public class UserService {
             user.setEmail(credentials.getEmail());
         }
 
-        if(credentials.getPassword() != "")
+        if(credentials.getPassword() != null)
             user.setPassword(credentials.getPassword());
+
+        userRepository.save(user);
 
         return new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(),
             user.getBirthdate(), user.getEmail(), user.getPhone());
+    }
+
+    public User updateUser(String username, User userData) throws UserNotFoundException {
+        Optional<UserEntity> optionalUser = userRepository.findById(username);
+        UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
+
+        if(userData.getDescription() != null)
+            user.setDescription(userData.getDescription());
+        if(userData.getFirstName() != null)
+            user.setFirstName(userData.getFirstName());
+        if(userData.getLastName() != null)
+            user.setLastName(userData.getLastName());
+        if(userData.getBirthdate() != null)
+            user.setBirthdate(userData.getBirthdate());
+        if(userData.getPhone() != null)
+            user.setPhone(userData.getPhone());
+
+        userRepository.save(user);
+
+        return new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(),
+            user.getBirthdate(), user.getEmail(), user.getPhone());
+    }  
+
+    public void deleteUser(String username) throws UserNotFoundException {
+        Optional<UserEntity> optionalUser = userRepository.findById(username);
+        UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
+
+        userRepository.delete(user);
     }
 }

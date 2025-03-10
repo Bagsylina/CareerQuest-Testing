@@ -1,4 +1,4 @@
-package ro.unibuc.hello.exception;
+package ro.unibuc.careerquest.exception;
 
 public class UsernameTakenException extends RuntimeException {
     private static final String usernameTakenTemplate = "Username %s already taken";

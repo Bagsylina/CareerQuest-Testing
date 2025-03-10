@@ -1,4 +1,4 @@
-package ro.unibuc.hello.exception;
+package ro.unibuc.careerquest.exception;
 
 public class InvalidEmailException extends RuntimeException {
     private static final String invalidEmailTemplate = "Email %s is not valid.";

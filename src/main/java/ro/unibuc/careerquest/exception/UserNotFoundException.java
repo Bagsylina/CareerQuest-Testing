@@ -1,4 +1,4 @@
-package ro.unibuc.hello.exception;
+package ro.unibuc.careerquest.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
