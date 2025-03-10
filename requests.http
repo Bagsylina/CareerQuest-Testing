@@ -3,6 +3,13 @@
 # Prerequisite: humao.rest-client Vscode plugin (already present on codespace)
 # High-level overview of REST API concepts used here: https://www.packtpub.com/en-us/learning/how-to-tutorials/what-are-rest-verbs-and-status-codes-tutorial?srsltid=AfmBOoppDqtkhRxj5BLZONRZFzRDmh6eP-xyTo6H4OuEHYuVbrg1d4Dm
 
+###################### JOBS
+GET http://localhost:8080/job
+
+#### ceva
+GET http://localhost:8080
+
+
 
 # Requests for API endpoints of the sample project:
 

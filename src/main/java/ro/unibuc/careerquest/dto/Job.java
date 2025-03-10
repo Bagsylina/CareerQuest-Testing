@@ -1,4 +1,6 @@
-package main.java.ro.unibuc.hello.dto;
+package ro.unibuc.careerquest.dto;
+
+import ro.unibuc.careerquest.data.JobEntity;
 
 public class Job {
     private String id;
@@ -26,6 +28,28 @@ public class Job {
         this.characteristics = characteristics;
         this.salary = salary;
         this.location = location;
+    }
+
+    public Job(JobEntity e) {
+        this.id = e.getId();
+        setContents(e);
+    }
+
+    public Job(String id, JobEntity e) {
+        this.id = id;
+        setContents(e);
+    }
+
+    public void setContents(JobEntity e) {
+        this.title = e.getTitle();
+        this.description = e.getDescription();
+        this.company = e.getCompany();
+        this.employer = e.getEmployer();
+        this.abilities = e.getAbilities();
+        this.domains = e.getDomains();
+        this.characteristics = e.getCharacteristics();
+        this.salary = e.getSalary();
+        this.location = e.getLocation();
     }
 
     public String getId() {

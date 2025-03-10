@@ -1,11 +1,13 @@
-package main.java.ro.unibuc.hello.service;
+package ro.unibuc.careerquest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ro.unibuc.hello.data.InformationEntity;
-import ro.unibuc.hello.data.InformationRepository;
-import ro.unibuc.hello.dto.Job;
-import ro.unibuc.hello.exception.EntityNotFoundException;
+
+import ro.unibuc.careerquest.data.JobEntity;
+import ro.unibuc.careerquest.data.JobRepository;
+import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.exception.EntityNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,77 +17,75 @@ import java.util.concurrent.atomic.AtomicLong;
 public class JobsService {
 
     @Autowired
-    private InformationRepository informationRepository;
+    private JobRepository jobDatabase;
 
     private final AtomicLong counter = new AtomicLong();
-    private static final String helloTemplate = "Hello, %s!";
-    private static final String informationTemplate = "%s : %s!";
+    // private static final String helloTemplate = "Hello, %s!";
+    // private static final String informationTemplate = "%s : %s!";
 
-    // public Job hello(String name) {
-    //     return new Job(Long.toString(counter.incrementAndGet()), String.format(helloTemplate, name));
-    // }
+    public Job buildJob( String title, String description, String company, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
+        return new Job(Long.toString(counter.incrementAndGet()), title, description, company, employer, abilities, domains, characteristics, salary, location);
+    }
 
-    public Job buildJobFromInfo(String title) throws EntityNotFoundException {
-        InformationEntity entity = informationRepository.findByTitle(title);
+    public Job buildJobFromTitle(String title) throws EntityNotFoundException {
+        JobEntity entity = jobDatabase.findByTitle(title);
         if (entity == null) {
             throw new EntityNotFoundException(title);
         }
-        return new Job(Long.toString(counter.incrementAndGet()), String.format(informationTemplate, entity.getTitle(), entity.getDescription()));
+        return new Job(Long.toString(counter.incrementAndGet()), entity); // implemented constructor for ease
     }
 
     public List<Job> getAllJobs() {
-        List<InformationEntity> entities = informationRepository.findAll();
+        List<JobEntity> entities = jobDatabase.findAll();
         return entities.stream()
-                .map(entity -> new Job(entity.getId(), entity.getTitle()))
+                .map(entity -> new Job(entity))
                 .collect(Collectors.toList());
     }
 
-    public Job getJobById(String id) throws EntityNotFoundException {
-        Optional<InformationEntity> optionalEntity = informationRepository.findById(id);
-        InformationEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
-        return new Job(entity.getId(), entity.getTitle());
+    public Job getJob(String id) throws EntityNotFoundException {
+        Optional<JobEntity> optionalEntity = jobDatabase.findById(id);
+        JobEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
+        return new Job(entity); // implemented constructor for ease
     }
 
     public Job saveJob(Job job) {
-        InformationEntity entity = new InformationEntity();
-        entity.setId(job.getId());
-        entity.setTitle(job.getContent());
-        informationRepository.save(entity);
-        return new Job(entity.getId(), entity.getTitle());
+        JobEntity entity = new JobEntity(job); // implemented constructor for ease
+
+        jobDatabase.save(entity);
+        return new Job(entity); // implemented constructor for ease
     }
 
     public List<Job> saveAll(List<Job> jobs) {
-        List<InformationEntity> entities = jobs.stream()
+        List<JobEntity> entities = jobs.stream()
                 .map(job -> {
-                    InformationEntity entity = new InformationEntity();
-                    entity.setId(job.getId());
-                    entity.setTitle(job.getContent());
+                    JobEntity entity = new JobEntity(job);
                     return entity;
                 })
                 .collect(Collectors.toList());
 
-        List<InformationEntity> savedEntities = informationRepository.saveAll(entities);
+        List<JobEntity> savedEntities = jobDatabase.saveAll(entities);
 
         return savedEntities.stream()
-                .map(entity -> new Job(entity.getId(), entity.getTitle()))
+                .map(entity -> new Job(entity))
                 .collect(Collectors.toList());
     }
 
+    /// ???
     public Job updateJob(String id, Job job) throws EntityNotFoundException {
-        InformationEntity entity = informationRepository.findById(id)
+        JobEntity entity = jobDatabase.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        entity.setTitle(job.getContent());
-        informationRepository.save(entity);
-        return new Job(entity.getId(), entity.getTitle());
+        entity.setContents(job);
+        jobDatabase.save(entity);
+        return new Job(entity);
     }
 
     public void deleteJob(String id) throws EntityNotFoundException {
-        InformationEntity entity = informationRepository.findById(id)
+        JobEntity entity = jobDatabase.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        informationRepository.delete(entity);
+                jobDatabase.delete(entity);
     }
 
     public void deleteAllJobs() {
-        informationRepository.deleteAll();
+        jobDatabase.deleteAll();
     }
 }
