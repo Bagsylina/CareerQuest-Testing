@@ -22,6 +22,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String getTest() {
+        return "This is a test!";
+    }
+
     @GetMapping("/users")
     @ResponseBody
     public List<User> getAllUsers() {
@@ -46,6 +52,7 @@ public class UserController {
         return userService.createUser(user);
     }
 
+    // TO-DO: make it put request instead of post
     @PostMapping("/user-cred/{id}") 
     @ResponseBody
     public User updateCredentials(@PathVariable String id, @RequestBody UserCreation user) throws UserNotFoundException, InvalidEmailException {

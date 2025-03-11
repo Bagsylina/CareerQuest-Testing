@@ -15,8 +15,8 @@ import ro.unibuc.careerquest.dto.UserCreation;
 import ro.unibuc.careerquest.exception.InvalidEmailException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
-import ro.unibuc.hello.exception.EntityNotFoundException;
 
+@Component
 public class UserService {
     
     @Autowired

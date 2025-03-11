@@ -55,6 +55,7 @@ public class UserEntity {
     public String getFullName() {return fullName;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
+    // TO-DO: space between names
     public void setFirstName(String firstName) {
         this.firstName = firstName;
         this.fullName = firstName + lastName;
