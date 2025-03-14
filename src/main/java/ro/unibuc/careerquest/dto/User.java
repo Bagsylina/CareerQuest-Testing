@@ -1,6 +1,7 @@
 package ro.unibuc.careerquest.dto;
 
 import java.time.Period;
+
 import java.time.LocalDate;
 
 public class User {
@@ -19,8 +20,6 @@ public class User {
     private String email;
     private String phone;
 
-    private String CV;
-
     public User() {}
 
     public User(String username, String email) {
@@ -33,8 +32,14 @@ public class User {
         this.description = description;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
         this.birthdate = birthdate;
+        if(birthdate != null) {
+            LocalDate currentDate = LocalDate.now();
+            this.age = Period.between(birthdate, currentDate).getYears();
+        }
+        else
+            this.age = 0;
         this.email = email;
         this.phone = phone;
     }
@@ -44,14 +49,13 @@ public class User {
     public String getName() {return fullName;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
-    // TO-DO: space between names
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
     }
     public void setLastName(String lastName){
         this.lastName = lastName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
     }
 
     public String getDescription() {return description;}
@@ -73,7 +77,4 @@ public class User {
     public String getPhone() {return phone;}
     public void setEmail(String email) {this.email = email;}
     public void setPhone(String phone) {this.phone = phone;}
-
-    public String getCV() {return CV;}
-    public void setCV(String CV) {this.CV = CV;}
 }

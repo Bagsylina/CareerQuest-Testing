@@ -33,6 +33,6 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     public Collection<String> getMappingBasePackages() {
-        return Collections.singleton("main.java.careerquest.data");
+        return Collections.singleton("ro.unibuc.careerquest.data");
     }
 }

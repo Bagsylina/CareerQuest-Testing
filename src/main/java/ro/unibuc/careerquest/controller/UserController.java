@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ro.unibuc.careerquest.dto.CV;
+import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.dto.UserCreation;
 import ro.unibuc.careerquest.exception.InvalidEmailException;
@@ -52,8 +54,7 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    // TO-DO: make it put request instead of post
-    @PostMapping("/user-cred/{id}") 
+    @PutMapping("/user-cred/{id}") 
     @ResponseBody
     public User updateCredentials(@PathVariable String id, @RequestBody UserCreation user) throws UserNotFoundException, InvalidEmailException {
         return userService.updateCredentials(id, user);
@@ -71,27 +72,15 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    /*@GetMapping("/cv/{id}")
+    @GetMapping("/user-cvs/{id}")
     @ResponseBody
-    public String getCV(@PathVariable String id) throws UserNotFoundException {
-        return userService.getCV(id);
+    public List<CV> getCVs(@PathVariable String id) throws UserNotFoundException {
+        return userService.getCVs(id);
     }
 
-    @PostMapping("/cv/{id}")
+    @PostMapping("/user-cvs/{id}")
     @ResponseBody
-    public String createCV(@PathVariable String id, @RequestBody String CV) throws UserNotFoundException {
-        return userService.createCV(id, CV);
+    public CV addCV(@PathVariable String id, @RequestBody CVCreation cv) throws UserNotFoundException {
+        return userService.addCV(id, cv);
     }
-
-    @PutMapping("/cv/{id}")
-    @ResponseBody
-    public String updateCV(@PathVariable String id, @RequestBody String CV) throws UserNotFoundException {
-        return userService.updateCV(id, CV);
-    }
-
-    @DeleteMapping("/cv/{id}")
-    @ResponseBody
-    public String deleteCV(@PathVariable String id) throws UserNotFoundException {
-        return userService.deleteCV(id);
-    }*/
 }

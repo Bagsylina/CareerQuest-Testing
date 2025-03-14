@@ -3,6 +3,10 @@ package ro.unibuc.careerquest.data;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserEntity {
     
@@ -21,8 +25,6 @@ public class UserEntity {
     private String email;
     private String phone;
 
-    private String CV;
-
     public UserEntity() {}
 
     public UserEntity(String username, String password, String email) {
@@ -37,7 +39,7 @@ public class UserEntity {
         this.description = description;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
         this.birthdate = birthdate;
         this.email = email;
         this.phone = phone;
@@ -55,14 +57,13 @@ public class UserEntity {
     public String getFullName() {return fullName;}
     public String getFirstName() {return firstName;}
     public String getLastName() {return lastName;}
-    // TO-DO: space between names
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
     }
     public void setLastName(String lastName){
         this.lastName = lastName;
-        this.fullName = firstName + lastName;
+        this.fullName = firstName + " " + lastName;
     }
 
     public String getDescription() {return description;}
@@ -75,7 +76,4 @@ public class UserEntity {
     public String getPhone() {return phone;}
     public void setEmail(String email) {this.email = email;}
     public void setPhone(String phone) {this.phone = phone;}
-
-    public String getCV() {return CV;}
-    public void setCV(String CV) {this.CV = CV;}
 }

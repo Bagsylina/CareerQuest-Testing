@@ -4,6 +4,9 @@ GET http://localhost:8080/test
 ### Get all users
 GET http://localhost:8080/users
 
+### Get all users by name
+GET http://localhost:8080/users/Fabian
+
 ### Create a user
 @postUsername = bagsylina
 @postPassword = 12345678
@@ -35,18 +38,17 @@ Content-Type: application/json
 }
 
 ### Update user birthdate
-@putBirthdate = 02-04-2003
+@putBirthdate = 2003-04-02
 PUT http://localhost:8080/user/bagsylina
 Content-Type: application/json
 
 {
-    "birthdate": {{putBirthdate}}
+    "birthdate": "{{putBirthdate}}"
 }
 
 ### Update credentials
-### TO UPDATE TO PUT
 @putEmail = bagsylina@fabian.com
-POST http://localhost:8080/user-cred/bagsylina
+PUT http://localhost:8080/user-cred/bagsylina
 Content-Type: application/json
 
 {
@@ -54,11 +56,57 @@ Content-Type: application/json
 }
 
 ### Update bad email
-### TO UPDATE TO PUT
 @badEmail = ceva
-POST http://localhost:8080/user-cred/bagsylina
+PUT http://localhost:8080/user-cred/bagsylina
 Content-Type: application/json
 
 {
     "email": "{{badEmail}}"
 }
+
+### Add a CV
+@postCVDesc = test
+@postCVAchieve = test
+POST http://localhost:8080/user-cvs/bagsylina
+Content-Type: application/json
+
+{
+    "description": "{{postCVDesc}}",
+    "achievements": "{{postCVAchieve}}"
+}
+
+### Get all CVs
+GET http://localhost:8080/user-cvs/bagsylina
+
+
+### Update CV
+@putCVDesc = test2
+PUT http://localhost:8080/cv/1
+Content-Type: application/json
+
+{
+    "description": "{{putCVDesc}}"
+}
+
+### Add education
+PUT http://localhost:8080/cv-add-exp/1
+Content-Type: application/json
+
+{
+    "field": "education",
+    "startDate": "2022-10-01",
+    "title": "Bachelor of Computer Science",
+    "institution": "University of Bucharest"
+}
+
+### Remove wrong education
+PUT http://localhost:8080/cv-rmv-exp/1?field=education&i=2
+
+### Remove education
+PUT http://localhost:8080/cv-rmv-exp/1?field=education&i=0
+
+### Add a tag
+PUT http://localhost:8080/cv-add-tag/1?field=language&tag=english
+
+### Delete a cv
+DELETE http://localhost:8080/cv/1
