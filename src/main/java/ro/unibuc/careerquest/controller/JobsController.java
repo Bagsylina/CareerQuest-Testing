@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.service.JobsService;
@@ -16,6 +17,12 @@ import java.util.List;
 public class JobsController {
     @Autowired
     private JobsService jobsService;
+
+    @GetMapping("/hello")
+    @ResponseBody
+    public String sayHello() {
+        return "hello";
+    }
 
     @GetMapping("/job")
     @ResponseBody
@@ -29,33 +36,32 @@ public class JobsController {
         return jobsService.getJob(id);
     }
 
-
     // here it's get!!
-    @GetMapping("/info")
-    @ResponseBody
-    public Job buildJobFromTitle(@RequestParam(name="title", required=false, defaultValue="Overview") String title) throws EntityNotFoundException {
-        return jobsService.buildJobFromTitle(title);
-    }
+    // @GetMapping("/info")
+    // @ResponseBody
+    // public Job buildJobFromTitle(@RequestParam(name="title", required=false, defaultValue="Overview") String title) throws EntityNotFoundException {
+    //     return jobsService.buildJobFromTitle(title);
+    // }
+
+    // @PostMapping("/job/build")
+    // @ResponseBody
+    // public Job buildJob(@RequestParam(name="title", required=true) String title,
+    //                     @RequestParam(name="description", required=false) String description,
+    //                     @RequestParam(name="company", required=false) String company,
+    //                     @RequestParam(name="employer", required=false) String employer,
+    //                     @RequestParam(name="salary", required=false) Integer salary,
+    //                     @RequestParam(name="location", required=false) String location,
+    //                     @RequestParam(name="abilities", required=false) String[] abilities,
+    //                     @RequestParam(name="domains", required=false) String[] domains,
+    //                     @RequestParam(name="characteristics", required=false) String[] characteristics
+    //                    ) {             
+    //     return jobsService.buildJob(title, description, company, employer, abilities, domains, characteristics, salary, location);
+    // }
 
     @PostMapping("/job")
     @ResponseBody
-    public Job buildJob(@RequestParam(name="title", required=true) String title,
-                        @RequestParam(name="description", required=false) String description,
-                        @RequestParam(name="company", required=false) String company,
-                        @RequestParam(name="employer", required=false) String employer,
-                        @RequestParam(name="salary", required=false) Integer salary,
-                        @RequestParam(name="location", required=false) String location,
-                        @RequestParam(name="abilities", required=false) String[] abilities,
-                        @RequestParam(name="domains", required=false) String[] domains,
-                        @RequestParam(name="characteristics", required=false) String[] characteristics
-                       ) {             
-        return jobsService.buildJob(title, description, company, employer, abilities, domains, characteristics, salary, location);
-    }
-
-    @PostMapping("/job")
-    @ResponseBody
-    public Job createJob(@RequestBody Job job) {
-        return jobsService.saveJob(job);
+    public Job createJob(@RequestBody JobContent job) {
+        return jobsService.createJob(job);
     }
 
     @PutMapping("/job/{id}")

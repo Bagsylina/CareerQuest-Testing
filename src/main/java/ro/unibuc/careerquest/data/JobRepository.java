@@ -14,11 +14,11 @@ public interface JobRepository extends MongoRepository<JobEntity, String> {
 
     JobEntity findByTitle(String title);
 
+    //JobEntity findById(String id);
+
     List<JobEntity> findByDescription(String description);
 
     List<JobEntity> findByEmployer(String employer);
-
-    List<JobEntity> findByCompany(String company);
 
     List<JobEntity> findByLocation(String location);
 

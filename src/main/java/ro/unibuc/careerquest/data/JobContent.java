@@ -1,14 +1,8 @@
 package ro.unibuc.careerquest.data;
 
-import org.springframework.data.annotation.Id;
 
-import ro.unibuc.careerquest.dto.Job;
-
-public class JobEntity {
-
-    @Id
-    private String id;
-
+public class JobContent {
+    //private String id;
     private String title;
     private String description;
     private String employer; // !!
@@ -18,22 +12,10 @@ public class JobEntity {
     private Integer salary;
     private String location;
 
-    public JobEntity() {}
+    public JobContent() {}
 
-    public JobEntity(String id, JobContent job) {
-        this.id = id;
-        this.title = job.getTitle();
-        this.description = job.getDescription();
-        this.employer = job.getEmployer();
-        this.abilities = job.getAbilities(); // here a copy??
-        this.domains = job.getDomains();
-        this.characteristics = job.getCharacteristics();
-        this.salary = job.getSalary();
-        this.location = job.getLocation();
-    }
-
-    public JobEntity(String id, String title, String description, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
-        this.id = id;
+    public JobContent(String title, String description, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
+        //this.id = id;
         this.title = title;
         this.description = description;
         this.employer = employer;
@@ -44,34 +26,8 @@ public class JobEntity {
         this.location = location;
     }
 
-    public JobEntity(Job job) {
-        this.id = job.getId();
-        setContents(job);
-    }
-
-    public JobEntity(String id, Job job) {
-        this.id = id;
-        setContents(job);
-    }
-
-    public void setContents(Job job) {
-        this.title = job.getTitle();
-        this.description = job.getDescription();
-        this.employer = job.getEmployer();
-        this.abilities = job.getAbilities();
-        this.domains = job.getDomains();
-        this.characteristics = job.getCharacteristics();
-        this.salary = job.getSalary();
-        this.location = job.getLocation();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    // public String getId() { return id;}
+    // public void setId(String id) { this.id = id;}
 
     public String getTitle() {
         return title;
@@ -135,12 +91,5 @@ public class JobEntity {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Information[id='%s', title='%s', description='%s']",
-                id, title, description);
     }
 }

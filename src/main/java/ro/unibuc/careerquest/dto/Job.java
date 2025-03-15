@@ -6,7 +6,6 @@ public class Job {
     private String id;
     private String title;
     private String description;
-    private String company;
     private String employer; // !!
     private String[] abilities; // !! necessary abilities tags
     private String[] domains; // !! domain tags
@@ -17,11 +16,10 @@ public class Job {
     public Job() {
     }
 
-    public Job(String id, String title, String description, String company, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
+    public Job(String id, String title, String description, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.company = company;
         this.employer = employer;
         this.abilities = abilities;
         this.domains = domains;
@@ -43,7 +41,6 @@ public class Job {
     public void setContents(JobEntity e) {
         this.title = e.getTitle();
         this.description = e.getDescription();
-        this.company = e.getCompany();
         this.employer = e.getEmployer();
         this.abilities = e.getAbilities();
         this.domains = e.getDomains();
@@ -74,14 +71,6 @@ public class Job {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public String getEmployer() {

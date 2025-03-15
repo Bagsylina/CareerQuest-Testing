@@ -24,10 +24,10 @@ public class CareerQuestApplication {
 	public void runAfterObjectCreated() {
 		jobDatabase.deleteAll();
 
-		String[] abilities = {"Java", "Spring Boot", "Docker"};
-        String[] domains = {"Backend Development", "Microservices"};
-        String[] characteristics = {"Team player", "Problem solver"};
-		jobDatabase.save(new JobEntity("789", "JobDefault", "Descriere", "companie", "employer", abilities, domains, characteristics, 5000, "Brasov")); // here add attributes for default values
+		// String[] abilities = {"Java", "Spring Boot", "Docker"};
+        // String[] domains = {"Backend Development", "Microservices"};
+        // String[] characteristics = {"Team player", "Problem solver"};
+		// jobDatabase.save(new JobEntity("789", "JobDefault", "Descriere", "companie", "employer", abilities, domains, characteristics, 5000, "Brasov")); // here add attributes for default values
 	}
 
 }
