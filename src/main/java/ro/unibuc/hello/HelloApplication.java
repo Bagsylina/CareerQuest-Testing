@@ -1,3 +1,4 @@
+/* 
 package ro.unibuc.hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,9 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import ro.unibuc.hello.data.InformationEntity;
-import ro.unibuc.hello.data.InformationRepository;
-
 import jakarta.annotation.PostConstruct;
+import ro.unibuc.hello.data.InformationRepository;
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = InformationRepository.class)
@@ -28,3 +28,5 @@ public class HelloApplication {
 	}
 
 }
+
+*/

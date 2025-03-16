@@ -1,4 +1,4 @@
-package careerquest.ro.unibuc.hello.config;
+package ro.unibuc.careerquest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
