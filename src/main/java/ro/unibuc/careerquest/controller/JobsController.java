@@ -13,6 +13,7 @@ import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.service.JobsService;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
+import ro.unibuc.careerquest.exception.AlreadyAppliedException;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -70,7 +71,7 @@ public class JobsController {
 
     @PostMapping("/job-app/{id}")
     @ResponseBody
-    public Application jobApply(@PathVariable String id, @RequestParam String cvId) throws EntityNotFoundException, CVNotFoundException, UserNotFoundException {
+    public Application jobApply(@PathVariable String id, @RequestParam String cvId) throws EntityNotFoundException, CVNotFoundException, UserNotFoundException, AlreadyAppliedException {
         return jobsService.jobApply(id, cvId);
     }
 }

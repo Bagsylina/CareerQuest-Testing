@@ -19,6 +19,8 @@ import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
+import ro.unibuc.careerquest.exception.UsernameTakenException;
+import ro.unibuc.careerquest.exception.AlreadyAppliedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -90,21 +92,29 @@ public class JobsService {
         return applications;
     }
 
-    public Application jobApply(String jobId, String cvId) throws EntityNotFoundException, CVNotFoundException, UserNotFoundException {
+    public Application jobApply(String jobId, String cvId) throws EntityNotFoundException, CVNotFoundException, UserNotFoundException, AlreadyAppliedException {
+        //get job
         JobEntity job = jobDatabase.findById(jobId)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(jobId)));
 
+        //get cv
         Optional<CVEntity> optionalCV = cvRepository.findById(cvId);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(cvId));
 
+        //verify that user has not already applied to job
         String username = cv.getUserId();
+        Optional<ApplicationEntity> optionalApp = applicationRepository.findByJobIdAndUsername(jobId, username);
+        optionalApp.ifPresent(app -> {throw new AlreadyAppliedException(app.getUsername());});
+
+        //get user
         Optional<UserEntity> optionalUser = userRepository.findById(username);
         UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
 
+        //save in mongo
         ApplicationEntity app = new ApplicationEntity(Long.toString(appCounter.incrementAndGet()), jobId, cv.getUserId(), cvId);
-
         applicationRepository.save(app);
 
+        //create app dto that contains all information about job cv and user
         Job jobData = new Job(job);
         CV cvData = new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
                 cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());

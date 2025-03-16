@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ApplicationRepository extends MongoRepository<ApplicationEntity, String> {
     
@@ -13,5 +15,5 @@ public interface ApplicationRepository extends MongoRepository<ApplicationEntity
     List<ApplicationEntity> findByJobId(String jobId);
 
     @Query("{ 'jobId': ?0, 'username': ?1 }")
-    ApplicationEntity findByJobIdAndUsername(String jobId, String username);
+    Optional<ApplicationEntity> findByJobIdAndUsername(String jobId, String username);
 }
