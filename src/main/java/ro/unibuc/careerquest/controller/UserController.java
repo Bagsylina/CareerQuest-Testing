@@ -10,6 +10,7 @@ import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.dto.UserCreation;
+import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.exception.InvalidEmailException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
@@ -82,5 +83,11 @@ public class UserController {
     @ResponseBody
     public CV addCV(@PathVariable String id, @RequestBody CVCreation cv) throws UserNotFoundException {
         return userService.addCV(id, cv);
+    }
+
+    @GetMapping("/user-app/{id}")
+    @ResponseBody
+    public List<ApplicationEntity> getApplications(@PathVariable String id) {
+        return userService.getApplications(id);
     }
 }

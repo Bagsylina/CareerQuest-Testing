@@ -13,6 +13,7 @@ GET http://localhost:8080/hello
 
 POST http://localhost:8080/job
 Content-Type: application/json
+
 {
     "title": "Software developer",
     "description": "8 hr workdays, a year at least",
@@ -108,3 +109,18 @@ DELETE http://localhost:8080/greetings/{{deleteGreetingId}}
 
 
 # TODO add requests for your own endpoints!
+
+### Apply to job
+POST http://localhost:8080/job-app/1?cvId=1
+
+### Get all job applications for a job
+GET http://localhost:8080/job-app/1
+
+### Get all job applications for a user
+GET http://localhost:8080/user-app/bagsylina
+
+### Get job application
+GET http://localhost:8080/app/1
+
+### Delete job application
+DELETE http://localhost:8080/app/1
