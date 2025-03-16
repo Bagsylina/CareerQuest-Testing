@@ -3,6 +3,8 @@ package ro.unibuc.hello.e2e.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ro.unibuc.hello.dto.Greeting;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestTemplate;
-import ro.unibuc.hello.dto.Greeting;
+
 import ro.unibuc.hello.e2e.util.HeaderSetup;
 import ro.unibuc.hello.e2e.util.ResponseErrorHandler;
 import ro.unibuc.hello.e2e.util.ResponseResults;
