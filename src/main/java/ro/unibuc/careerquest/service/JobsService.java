@@ -24,17 +24,6 @@ public class JobsService {
     private static final String helloTemplate = "Hello, %s!";
     private static final String informationTemplate = "%s : %s!";
 
-    // public Job buildJob( String title, String description, String company, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
-    //     return new Job(Long.toString(counter.incrementAndGet()), title, description, company, employer, abilities, domains, characteristics, salary, location);
-    // }
-
-    // public Job buildJobFromTitle(String title) throws EntityNotFoundException {
-    //     JobEntity entity = jobDatabase.findByTitle(title);
-    //     if (entity == null) {
-    //         throw new EntityNotFoundException(title);
-    //     }
-    //     return new Job(Long.toString(counter.incrementAndGet()), entity); // implemented constructor for ease
-    // }
 
     public List<Job> getAllJobs() {
         List<JobEntity> entities = jobDatabase.findAll();
@@ -56,7 +45,39 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
-    // public List<Job> saveAll(List<Job> jobs) {
+    
+    public Job updateJob(String id, JobContent job) throws EntityNotFoundException {
+        JobEntity entity = jobDatabase.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+        entity.setContents(job);
+        jobDatabase.save(entity);
+        return new Job(entity);
+    }
+
+    public void deleteJob(String id) throws EntityNotFoundException {
+        JobEntity entity = jobDatabase.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+        jobDatabase.delete(entity);
+    }
+
+    public void deleteAllJobs() {
+        jobDatabase.deleteAll();
+    }
+}
+
+// public Job buildJob( String title, String description, String company, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
+    //     return new Job(Long.toString(counter.incrementAndGet()), title, description, company, employer, abilities, domains, characteristics, salary, location);
+    // }
+
+    // public Job buildJobFromTitle(String title) throws EntityNotFoundException {
+    //     JobEntity entity = jobDatabase.findByTitle(title);
+    //     if (entity == null) {
+    //         throw new EntityNotFoundException(title);
+    //     }
+    //     return new Job(Long.toString(counter.incrementAndGet()), entity); // implemented constructor for ease
+    // }
+
+// public List<Job> saveAll(List<Job> jobs) {
     //     List<JobEntity> entities = jobs.stream()
     //             .map(job -> {
     //                 JobEntity entity = new JobEntity(job);
@@ -72,21 +93,3 @@ public class JobsService {
     // }
 
     /// ???
-    public Job updateJob(String id, Job job) throws EntityNotFoundException {
-        JobEntity entity = jobDatabase.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        entity.setContents(job);
-        jobDatabase.save(entity);
-        return new Job(entity);
-    }
-
-    public void deleteJob(String id) throws EntityNotFoundException {
-        JobEntity entity = jobDatabase.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-                jobDatabase.delete(entity);
-    }
-
-    public void deleteAllJobs() {
-        jobDatabase.deleteAll();
-    }
-}

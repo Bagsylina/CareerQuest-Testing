@@ -22,14 +22,15 @@ public class JobEntity {
 
     public JobEntity(String id, JobContent job) {
         this.id = id;
-        this.title = job.getTitle();
-        this.description = job.getDescription();
-        this.employer = job.getEmployer();
-        this.abilities = job.getAbilities(); // here a copy??
-        this.domains = job.getDomains();
-        this.characteristics = job.getCharacteristics();
-        this.salary = job.getSalary();
-        this.location = job.getLocation();
+        setContents(job);
+        // this.title = job.getTitle();
+        // this.description = job.getDescription();
+        // this.employer = job.getEmployer();
+        // this.abilities = job.getAbilities(); // here a copy??
+        // this.domains = job.getDomains();
+        // this.characteristics = job.getCharacteristics();
+        // this.salary = job.getSalary();
+        // this.location = job.getLocation();
     }
 
     public JobEntity(String id, String title, String description, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
@@ -44,17 +45,17 @@ public class JobEntity {
         this.location = location;
     }
 
-    public JobEntity(Job job) {
-        this.id = job.getId();
-        setContents(job);
-    }
+    // public JobEntity(Job job) {
+    //     this.id = job.getId();
+    //     setContents(job);
+    // }
 
-    public JobEntity(String id, Job job) {
-        this.id = id;
-        setContents(job);
-    }
+    // public JobEntity(String id, Job job) {
+    //     this.id = id;
+    //     setContents(job);
+    // }
 
-    public void setContents(Job job) {
+    public void setContents(JobContent job) {
         this.title = job.getTitle();
         this.description = job.getDescription();
         this.employer = job.getEmployer();

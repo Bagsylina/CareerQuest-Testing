@@ -36,7 +36,30 @@ public class JobsController {
         return jobsService.getJob(id);
     }
 
-    // here it's get!!
+    
+    @PostMapping("/job")
+    @ResponseBody
+    public Job createJob(@RequestBody JobContent job) {
+        return jobsService.createJob(job);
+    }
+
+    @PutMapping("/job/{id}")
+    @ResponseBody
+    public Job updateJob(@PathVariable String id, @RequestBody JobContent job) throws EntityNotFoundException {
+        return jobsService.updateJob(id, job);
+    }
+
+    // add tags!!!!!!!!!!!!!!!!!!!!!!!
+
+    @DeleteMapping("/job/{id}")
+    @ResponseBody
+    public void deleteJob(@PathVariable String id) throws EntityNotFoundException {
+        jobsService.deleteJob(id);
+    }
+}
+
+
+// here it's get!!
     // @GetMapping("/info")
     // @ResponseBody
     // public Job buildJobFromTitle(@RequestParam(name="title", required=false, defaultValue="Overview") String title) throws EntityNotFoundException {
@@ -57,24 +80,3 @@ public class JobsController {
     //                    ) {             
     //     return jobsService.buildJob(title, description, company, employer, abilities, domains, characteristics, salary, location);
     // }
-
-    @PostMapping("/job")
-    @ResponseBody
-    public Job createJob(@RequestBody JobContent job) {
-        return jobsService.createJob(job);
-    }
-
-    @PutMapping("/job/{id}")
-    @ResponseBody
-    public Job updateJob(@PathVariable String id, @RequestBody Job job) throws EntityNotFoundException {
-        return jobsService.updateJob(id, job);
-    }
-
-    // add tags!!!!!!!!!!!!!!!!!!!!!!!
-
-    @DeleteMapping("/job/{id}")
-    @ResponseBody
-    public void deleteJob(@PathVariable String id) throws EntityNotFoundException {
-        jobsService.deleteJob(id);
-    }
-}

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JobRepository extends MongoRepository<JobEntity, String> {
 
-    JobEntity findByTitle(String title);
+    List<JobEntity> findByTitle(String title);
 
-    //JobEntity findById(String id);
+    //JobEntity findById(String id); -> already exists by default!!
 
     List<JobEntity> findByDescription(String description);
 
