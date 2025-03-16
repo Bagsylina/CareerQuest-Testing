@@ -1,5 +1,6 @@
-/* 
-package ro.unibuc.hello;
+
+/*package ro.unibuc.hello;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +28,4 @@ public class HelloApplication {
 				"This is an example of using a data storage engine running separately from our applications server"));
 	}
 
-}
-
-*/
+}*/

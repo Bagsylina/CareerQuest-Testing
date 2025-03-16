@@ -1,4 +1,4 @@
-package ro.unibuc.careerquest.data; // ok?
+package ro.unibuc.careerquest.data; 
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -19,7 +19,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     protected String getDatabaseName() {
-        return "test";
+        return "careerquest";
     }
 
     @Override
@@ -33,6 +33,6 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
     @Override
     public Collection<String> getMappingBasePackages() {
-        return Collections.singleton("careerquest.data");
+        return Collections.singleton("ro.unibuc.careerquest.data");
     }
 }

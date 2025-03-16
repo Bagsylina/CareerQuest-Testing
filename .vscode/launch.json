@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CareerQuestApplication",
+            "request": "launch",
+            "mainClass": "ro.unibuc.careerquest.CareerQuestApplication",
+            "projectName": "careerquest"
+        },
+        {
+            "type": "java",
             "name": "Service",
             "request": "launch",
             "mainClass": "ro.unibuc.hello.HelloApplication",
