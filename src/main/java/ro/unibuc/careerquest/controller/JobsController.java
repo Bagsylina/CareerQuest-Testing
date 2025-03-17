@@ -75,26 +75,3 @@ public class JobsController {
         return jobsService.jobApply(id, cvId);
     }
 }
-
-
-// here it's get!!
-    // @GetMapping("/info")
-    // @ResponseBody
-    // public Job buildJobFromTitle(@RequestParam(name="title", required=false, defaultValue="Overview") String title) throws EntityNotFoundException {
-    //     return jobsService.buildJobFromTitle(title);
-    // }
-
-    // @PostMapping("/job/build")
-    // @ResponseBody
-    // public Job buildJob(@RequestParam(name="title", required=true) String title,
-    //                     @RequestParam(name="description", required=false) String description,
-    //                     @RequestParam(name="company", required=false) String company,
-    //                     @RequestParam(name="employer", required=false) String employer,
-    //                     @RequestParam(name="salary", required=false) Integer salary,
-    //                     @RequestParam(name="location", required=false) String location,
-    //                     @RequestParam(name="abilities", required=false) String[] abilities,
-    //                     @RequestParam(name="domains", required=false) String[] domains,
-    //                     @RequestParam(name="characteristics", required=false) String[] characteristics
-    //                    ) {             
-    //     return jobsService.buildJob(title, description, company, employer, abilities, domains, characteristics, salary, location);
-    // }

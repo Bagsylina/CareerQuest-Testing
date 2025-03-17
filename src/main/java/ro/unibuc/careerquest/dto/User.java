@@ -4,6 +4,8 @@ import java.time.Period;
 
 import java.time.LocalDate;
 
+import ro.unibuc.careerquest.data.UserEntity;
+
 public class User {
 
     private String username;
@@ -42,6 +44,16 @@ public class User {
             this.age = 0;
         this.email = email;
         this.phone = phone;
+    }
+
+    public User(UserEntity user) {
+        this.username = user.getUsername();
+        this.description = user.getDescription();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.birthdate = user.getBirthdate();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
     }
 
     public String getUsername() {return username;}

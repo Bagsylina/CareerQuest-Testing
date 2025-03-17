@@ -108,5 +108,15 @@ PUT http://localhost:8080/cv-rmv-exp/1?field=education&i=0
 ### Add a tag
 PUT http://localhost:8080/cv-add-tag/1?field=language&tag=english
 
+### Add a skills tab
+PUT http://localhost:8080/cv-add-tag/1?field=skill&tag=Java
+
+### Add another skills tab
+PUT http://localhost:8080/cv-add-tag/1?field=skill&tag=DevOps
+
+### Add a tool tab
+PUT http://localhost:8080/cv-add-tag/1?field=tool&tag=Agile
+
+
 ### Delete a cv
 DELETE http://localhost:8080/cv/1

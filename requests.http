@@ -24,6 +24,11 @@ Content-Type: application/json
     "domains": ["SWE"],
     "characteristics": ["paid leave", "benefits"]
 }
+
+#### Example job 2
+POST http://localhost:8080/job
+Content-Type: application/json
+
 {
     "title": "Frontend developer",
     "description": "half a year contract",
@@ -34,6 +39,11 @@ Content-Type: application/json
     "domains": ["Frontend"],
     "characteristics": ["paid leave"]
 }
+
+#### Example job 3
+POST http://localhost:8080/job
+Content-Type: application/json
+
 {
     "title": "QA Engineer",
     "description": "part-time contract",
@@ -45,8 +55,11 @@ Content-Type: application/json
     "characteristics": ["hybrid"]
 }
 
+### Update job
+
 PUT http://localhost:8080/job/1
 Content-Type: application/json
+
 {
     "title": "Senior Software developer",
     "description": "8 hr workdays, a year at least",
@@ -58,7 +71,7 @@ Content-Type: application/json
     "characteristics": ["paid leave", "benefits"]
 }
 
-####
+####Delete
 DELETE http://localhost:8080/job/4
 
 
@@ -124,3 +137,16 @@ GET http://localhost:8080/app/1
 
 ### Delete job application
 DELETE http://localhost:8080/app/1
+
+
+
+### Get all applications to a job
+GET http://localhost:8080/app/job/1
+
+### Get all applications of a user
+GET http://localhost:8080/app/user/1
+
+
+
+### CHECK MATCH
+GET http://localhost:8080/app/match/1?cvId=1

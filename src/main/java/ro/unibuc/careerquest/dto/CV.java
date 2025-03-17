@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ro.unibuc.careerquest.data.CVComponent;
+import ro.unibuc.careerquest.data.CVEntity;
 
 public class CV {
 
@@ -49,6 +50,20 @@ public class CV {
         this.skills = new ArrayList<>(skills);
         this.tools = new ArrayList<>(tools);
         this.languages = new ArrayList<>(languages);
+    }
+
+    public CV(CVEntity cv) {
+        this.id = cv.getId();
+        this.userId = cv.getUserId();
+        this.description = cv.getDescription();
+        this.achievements = cv.getAchievements();
+        this.education = cv.getEducation();
+        this.experience = cv.getExperience();
+        this.extracurricular = cv.getExtracurricular();
+        this.projects = cv.getProjects();
+        this.skills = cv.getSkills();
+        this.tools = cv.getTools();
+        this.languages = cv.getLanguages();
     }
 
     public String getId() {return id;}

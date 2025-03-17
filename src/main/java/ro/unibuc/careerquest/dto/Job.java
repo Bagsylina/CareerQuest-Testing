@@ -2,28 +2,31 @@ package ro.unibuc.careerquest.dto;
 
 import ro.unibuc.careerquest.data.JobEntity;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Job {
     private String id;
     private String title;
     private String description;
     private String employer; // !!
-    private String[] abilities; // !! necessary abilities tags
-    private String[] domains; // !! domain tags
-    private String[] characteristics; // !! other characteristics tags
+    private List<String> abilities = new ArrayList<>(); // !! necessary abilities tags
+    private List<String> domains = new ArrayList<>(); // !! domain tags
+    private List<String> characteristics = new ArrayList<>(); // !! other characteristics tags
     private Integer salary;
     private String location;
 
     public Job() {
     }
 
-    public Job(String id, String title, String description, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
+    public Job(String id, String title, String description, String employer, List<String> abilities, List<String> domains, List<String> characteristics, Integer salary, String location) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.employer = employer;
-        this.abilities = abilities;
-        this.domains = domains;
-        this.characteristics = characteristics;
+        this.abilities = new ArrayList<>(abilities);
+        this.domains = new ArrayList<>(domains);
+        this.characteristics = new ArrayList<>(characteristics);
         this.salary = salary;
         this.location = location;
     }
@@ -42,9 +45,9 @@ public class Job {
         this.title = e.getTitle();
         this.description = e.getDescription();
         this.employer = e.getEmployer();
-        this.abilities = e.getAbilities();
-        this.domains = e.getDomains();
-        this.characteristics = e.getCharacteristics();
+        this.abilities = new ArrayList<>(e.getAbilities());
+        this.domains = new ArrayList<>(e.getDomains());
+        this.characteristics = new ArrayList<>(e.getCharacteristics());
         this.salary = e.getSalary();
         this.location = e.getLocation();
     }
@@ -81,28 +84,28 @@ public class Job {
         this.employer = employer;
     }
 
-    public String[] getAbilities() {
+    public List<String> getAbilities() {
         return abilities;
     }
 
-    public void setAbilities(String[] abilities) {
-        this.abilities = abilities;
+    public void setAbilities(List<String> abilities) {
+        this.abilities = new ArrayList<>(abilities);
     }
 
-    public String[] getDomains() {
+    public List<String> getDomains() {
         return domains;
     }
 
-    public void setDomains(String[] domains) {
-        this.domains = domains;
+    public void setDomains(List<String> domains) {
+        this.domains =  new ArrayList<>(domains);
     }
 
-    public String[] getCharacteristics() {
+    public List<String> getCharacteristics() {
         return characteristics;
     }
 
-    public void setCharacteristics(String[] characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(List<String> characteristics) {
+        this.characteristics =  new ArrayList<>(characteristics);
     }
 
     public Integer getSalary() {
