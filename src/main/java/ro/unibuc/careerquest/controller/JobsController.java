@@ -60,7 +60,7 @@ public class JobsController {
     @GetMapping("/jobs/employer/{employerId}")
     @ResponseBody
     public List<Job> getJobsByEmployer(@PathVariable String employerId) {
-        return jobService.getJobsByEmployer(employerId);
+        return jobsService.getJobsByEmployer(employerId);
     }
 
 }

@@ -62,14 +62,7 @@ public class EmployerController {
     @PutMapping("/employer/{id}/pay")
     @ResponseBody
     public Employer payForPremium(@PathVariable String id) {
-        Employer employer = employerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
-
-        employer.setLastPaymentDate(LocalDate.now());
-        employer.setPremium(true);
-        employerRepository.save(employer);
-
-        return employer;
+        empsService.updatePayment(id,LocalDate.now(), true);
     }
 
 }

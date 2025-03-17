@@ -22,7 +22,16 @@ public class Employer {
         this.lastPaymentDate = lastPaymentDate;
         this.premium = premium;
     }
-    public LocalDate getLastPaymentDate()
+  
+
+    public Employer(String id, String name) {
+        this.id = id;
+        this.name = name;
+        
+    }
+
+
+      public LocalDate getLastPaymentDate()
     {
         return lastPaymentDate;
     }
@@ -37,14 +46,6 @@ public class Employer {
     public void setPremium(boolean premium) {
         this.premium = premium;
     }
-
-    public Employer(String id, String name) {
-        this.id = id;
-        this.name = name;
-        
-    }
-
-    
 
     public String getId() {
         return id;

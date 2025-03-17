@@ -26,4 +26,6 @@ public interface JobRepository extends MongoRepository<JobEntity, String> {
 
     List<Job> findByPriority(String employer);
 
+    List<Job> countByEmployer(String employer);
+
 }

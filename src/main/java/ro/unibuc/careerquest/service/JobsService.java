@@ -7,6 +7,7 @@ import main.java.ro.unibuc.careerquest.dto.Employer;
 import ro.unibuc.careerquest.data.EmployerRepository;
 import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.data.JobEntity;
+import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.data.EmployerRepository;
 import ro.unibuc.careerquest.dto.Job;
@@ -39,7 +40,7 @@ public class JobsService {
     
     //get the jobs after priority
     public List<Job> getAllJobs() {
-        return jobRepository.findAll().stream()
+        return jobDatabase.findAll().stream()
             .sorted((j1, j2) -> Boolean.compare(j2.getEmployer().isPremium(), j1.getEmployer().isPremium())) // Premium first
             .collect(Collectors.toList());
     }
@@ -53,7 +54,7 @@ public class JobsService {
 
     //return all the jobs created by an employer
     public List<Job> getJobsByEmployer(String employerId) {
-        return jobRepository.findByEmployer(employerId);
+        return jobDatabase.findByEmployer(employerId);
     }
 
     // public Job createJob(JobContent job) {
@@ -63,14 +64,14 @@ public class JobsService {
     //     return new Job(entity); // implemented constructor for ease
     // }
 
-     public Job createJob(Job job, String employerId) {
-        Employer employer = employerRepository.findById(employerId)
+     public Job createJob(JobContent job, String employerId) {
+        EmployerEntity employer = employerRepository.findById(employerId)
                 .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
 
         // Verify if the payment for this month is done
         if (employer.getLastPaymentDate() == null || employer.getLastPaymentDate().isBefore(LocalDate.now().minusMonths(1))) {
             employer.setPremium(false); // If the payment is not done, then we don't have a premium account
-            employerRepository.save(employer);
+            //employerRepository.save(employer);
         }
 
         // If we are not premium, check how many free post we have
@@ -81,7 +82,9 @@ public class JobsService {
             }
         }
 
-        return jobDatabase.save(job);
+        jobDatabase.save(job);
+        //return new Job(job); // implemented constructor for ease
+   
     }
 
     

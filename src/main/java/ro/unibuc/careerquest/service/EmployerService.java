@@ -8,6 +8,8 @@ import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.EmployerRepository;
 
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,11 +41,21 @@ public class EmployerService {
                 .collect(Collectors.toList());
     }
 
-    public Employer getEmployerById(String id) throws EntityNotFoundException {
-        Optional<EmployerEntity> optionalEntity = employerRepository.findById(id);
-        EmployerEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
-        return new Employer(entity.getId(), entity.getName());
+    // public Employer getEmployerById(String id) throws EntityNotFoundException {
+    //     Optional<EmployerEntity> optionalEntity = employerRepository.findById(id);
+    //     EmployerEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
+    //     return new Employer(entity.getId(), entity.getName());
+    // }
+
+    public Employer getEmployerById(String employerId) {
+        // Căutăm employer-ul după ID
+        EmployerEntity entity = employerRepository.findById(employerId)
+                .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
+    
+        // Returnăm un obiect Employer pe baza entității găsite
+        return new Employer(entity.getId(), entity.getName(), entity.getEmail(), entity.getPhone(), entity.getCompany());
     }
+    
 
     public Employer saveEmployer(Employer employer) {
         EmployerEntity entity = new EmployerEntity();
@@ -76,6 +88,14 @@ public class EmployerService {
         entity.setName(emp.getName());
         employerRepository.save(entity);
         return new Employer(entity.getId(), entity.getName());
+    }
+    public Employer updatePayment( String id, LocalDate lastPaymentDate , boolean premiu) throws EntityNotFoundException {
+        EmployerEntity entity = employerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+        entity.setLastPaymentDate(lastPaymentDate);
+        entity.setPremium(premiu);
+        employerRepository.save(entity);
+        //return new Employer(entity.getId(), entity.getName());
     }
 
     public void deleteEmployer(String id) throws EntityNotFoundException {
