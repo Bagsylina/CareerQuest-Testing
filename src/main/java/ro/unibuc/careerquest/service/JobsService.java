@@ -38,6 +38,11 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
+    //return all the jobs created by an employer
+    public List<Job> getJobsByEmployer(String employerId) {
+        return jobRepository.findByEmployer(employerId);
+    }
+
     public Job createJob(JobContent job) {
         JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
 

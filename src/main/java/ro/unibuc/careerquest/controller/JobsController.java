@@ -56,6 +56,13 @@ public class JobsController {
     public void deleteJob(@PathVariable String id) throws EntityNotFoundException {
         jobsService.deleteJob(id);
     }
+
+    @GetMapping("/jobs/employer/{employerId}")
+    @ResponseBody
+    public List<Job> getJobsByEmployer(@PathVariable String employerId) {
+        return jobService.getJobsByEmployer(employerId);
+    }
+
 }
 
 
