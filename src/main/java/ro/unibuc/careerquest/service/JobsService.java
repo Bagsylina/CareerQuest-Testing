@@ -39,10 +39,16 @@ public class JobsService {
     // }
     
     //get the jobs after priority
-    public List<Job> getAllJobs() {
+    public List<JobEntity> getAllJobs() {
+
+
         return jobDatabase.findAll().stream()
-            .sorted((j1, j2) -> Boolean.compare(j2.getEmployer().isPremium(), j1.getEmployer().isPremium())) // Premium first
-            .collect(Collectors.toList());
+        .sorted((j1, j2) -> {
+            boolean isPremium1 = (employerRepository.findByName( j1.getEmployer()) != null && employerRepository.findByName( j1.getEmployer()).isPremium());
+            boolean isPremium2 = (employerRepository.findByName( j2.getEmployer()) != null && employerRepository.findByName( j2.getEmployer()).isPremium());
+            return Boolean.compare(isPremium2, isPremium1); // Premium first
+        })        
+        .collect(Collectors.toList());
     }
     
 
@@ -53,7 +59,7 @@ public class JobsService {
     }
 
     //return all the jobs created by an employer
-    public List<Job> getJobsByEmployer(String employerId) {
+    public List<JobEntity> getJobsByEmployer(String employerId) {
         return jobDatabase.findByEmployer(employerId);
     }
 
@@ -82,8 +88,10 @@ public class JobsService {
             }
         }
 
-        jobDatabase.save(job);
-        //return new Job(job); // implemented constructor for ease
+        JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
+
+        jobDatabase.save(entity);
+        return new Job(entity);
    
     }
 

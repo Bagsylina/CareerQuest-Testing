@@ -53,7 +53,7 @@ public class EmployerService {
                 .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
     
         // Returnăm un obiect Employer pe baza entității găsite
-        return new Employer(entity.getId(), entity.getName(), entity.getEmail(), entity.getPhone(), entity.getCompany());
+        return new Employer(entity.getId(), entity.getName(), entity.getEmail(), entity.getPhone(), entity.getCompany(),entity.getLastPaymentDate(),entity.isPremium());
     }
     
 
@@ -95,7 +95,7 @@ public class EmployerService {
         entity.setLastPaymentDate(lastPaymentDate);
         entity.setPremium(premiu);
         employerRepository.save(entity);
-        //return new Employer(entity.getId(), entity.getName());
+        return new Employer(entity.getId(), entity.getName());
     }
 
     public void deleteEmployer(String id) throws EntityNotFoundException {

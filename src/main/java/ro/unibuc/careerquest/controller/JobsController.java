@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ro.unibuc.careerquest.data.JobContent;
+import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.service.JobsService;
@@ -26,7 +27,7 @@ public class JobsController {
 
     @GetMapping("/job")
     @ResponseBody
-    public List<Job> getAllJobs() {
+    public List<JobEntity> getAllJobs() {
         return jobsService.getAllJobs();
     }
 
@@ -39,8 +40,8 @@ public class JobsController {
     
     @PostMapping("/job")
     @ResponseBody
-    public Job createJob(@RequestBody JobContent job) {
-        return jobsService.createJob(job);
+    public Job createJob(@RequestBody JobContent job,String employerId) {
+        return jobsService.createJob(job,employerId);
     }
 
     @PutMapping("/job/{id}")
@@ -59,7 +60,7 @@ public class JobsController {
 
     @GetMapping("/jobs/employer/{employerId}")
     @ResponseBody
-    public List<Job> getJobsByEmployer(@PathVariable String employerId) {
+    public List<JobEntity> getJobsByEmployer(@PathVariable String employerId) {
         return jobsService.getJobsByEmployer(employerId);
     }
 

@@ -62,7 +62,8 @@ public class EmployerController {
     @PutMapping("/employer/{id}/pay")
     @ResponseBody
     public Employer payForPremium(@PathVariable String id) {
-        empsService.updatePayment(id,LocalDate.now(), true);
+        Employer employer = empsService.updatePayment(id,LocalDate.now(), true);
+        return empsService.saveEmployer(employer);
     }
 
 }
