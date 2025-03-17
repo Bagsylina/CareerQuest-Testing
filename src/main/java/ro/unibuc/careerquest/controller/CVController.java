@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ro.unibuc.careerquest.dto.CVCompCreation;
+//import ro.unibuc.careerquest.dto.CVCompCreation;
 import ro.unibuc.careerquest.data.CVComponent;
 import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
@@ -31,11 +31,11 @@ public class CVController {
         return cvService.updateCV(id, cv);
     }
 
-    @PutMapping("/cv-add-exp/{id}")
-    @ResponseBody 
-    public CV addExperience(@PathVariable String id, @RequestBody CVCompCreation experience) throws CVNotFoundException, FieldNotFoundException {
-        return cvService.addExperience(id, experience);
-    }
+    // @PutMapping("/cv-add-exp/{id}")
+    // @ResponseBody 
+    // public CV addExperience(@PathVariable String id, @RequestBody CVCompCreation experience) throws CVNotFoundException, FieldNotFoundException {
+    //     return cvService.addExperience(id, experience);
+    // }
 
     @PutMapping("/cv-add-tag/{id}")
     @ResponseBody

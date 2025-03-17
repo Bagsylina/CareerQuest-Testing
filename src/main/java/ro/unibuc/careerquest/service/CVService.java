@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ro.unibuc.careerquest.dto.CVCompCreation;
+//import ro.unibuc.careerquest.dto.CVCompCreation;
 import ro.unibuc.careerquest.data.CVComponent;
 import ro.unibuc.careerquest.data.CVEntity;
 import ro.unibuc.careerquest.data.CVRepository;
@@ -40,39 +40,39 @@ public class CVService {
                     cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
     }
 
-    public CV addExperience(String id, CVCompCreation expData) throws CVNotFoundException, FieldNotFoundException {
-        Optional<CVEntity> optionalCV = cvRepository.findById(id);
-        CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
+    // public CV addExperience(String id, CVCompCreation expData) throws CVNotFoundException, FieldNotFoundException {
+    //     Optional<CVEntity> optionalCV = cvRepository.findById(id);
+    //     CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
 
-        CVComponent experience;
+    //     CVComponent experience;
 
-        if(expData.getEndDate() != null)
-            experience = new CVComponent(expData.getStartDate(), expData.getEndDate(), expData.getTitle(), expData.getInstitution(), expData.getDescription());
-        else
-            experience = new CVComponent(expData.getStartDate(), expData.getTitle(), expData.getInstitution(), expData.getDescription());
+    //     if(expData.getEndDate() != null)
+    //         experience = new CVComponent(expData.getStartDate(), expData.getEndDate(), expData.getTitle(), expData.getInstitution(), expData.getDescription());
+    //     else
+    //         experience = new CVComponent(expData.getStartDate(), expData.getTitle(), expData.getInstitution(), expData.getDescription());
 
-        switch(expData.getField()) {
-            case "education": 
-                cv.addEducation(experience);
-                break;
-            case "experience":
-                cv.addExperience(experience);
-                break;
-            case "extracurricular":
-                cv.addExtracurricular(experience);
-                break;
-            case "project":
-                cv.addProject(experience);
-                break;
-            default:
-                throw new FieldNotFoundException(expData.getField());
-        }
+    //     switch(expData.getField()) {
+    //         case "education": 
+    //             cv.addEducation(experience);
+    //             break;
+    //         case "experience":
+    //             cv.addExperience(experience);
+    //             break;
+    //         case "extracurricular":
+    //             cv.addExtracurricular(experience);
+    //             break;
+    //         case "project":
+    //             cv.addProject(experience);
+    //             break;
+    //         default:
+    //             throw new FieldNotFoundException(expData.getField());
+    //     }
 
-        cvRepository.save(cv);
+    //     cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
-    }
+    //     return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
+    //                 cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+    // }
 
     public CV addTag(String id, String field, String tag) throws CVNotFoundException, FieldNotFoundException {
         Optional<CVEntity> optionalCV = cvRepository.findById(id);
