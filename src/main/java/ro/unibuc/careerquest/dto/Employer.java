@@ -1,21 +1,41 @@
 package main.java.ro.unibuc.careerquest.dto;
 
+import java.time.LocalDate;
+
 public class Employer {
     private String id;
     private String name;
     private String email;
     private String phone;
     private String company;
+    private LocalDate lastPaymentDate;
+    private boolean premium;
 
-    public Employer() {
-    }
+    public Employer() {}
 
-    public Employer(String id, String name, String email, String phone, String company) {
+    public Employer(String id, String name, String email, String phone, String company, LocalDate lastPaymenDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.company = company;
+        this.lastPaymentDate = lastPaymentDate;
+        this.premium = premium;
+    }
+    public LocalDate getLastPaymentDate()
+    {
+        return lastPaymentDate;
+    }
+    public void setLastPaymentDate(LocalDate lastPaymentDate) {
+        this.lastPaymentDate = lastPaymentDate;
+    }
+
+    public boolean isPremium() {
+        return premium;
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     public Employer(String id, String name) {

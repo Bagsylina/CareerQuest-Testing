@@ -13,6 +13,8 @@ import ro.unibuc.careerquest.exception.EntityNotFoundException;
 //import ro.unibuc.careerquest.service.GreetingsService;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -56,4 +58,18 @@ public class EmployerController {
     public void deleteEmployer(@PathVariable String id) throws EntityNotFoundException {
         empsService.deleteEmployer(id);
     }
+
+    @PutMapping("/employer/{id}/pay")
+    @ResponseBody
+    public Employer payForPremium(@PathVariable String id) {
+        Employer employer = employerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
+
+        employer.setLastPaymentDate(LocalDate.now());
+        employer.setPremium(true);
+        employerRepository.save(employer);
+
+        return employer;
+    }
+
 }

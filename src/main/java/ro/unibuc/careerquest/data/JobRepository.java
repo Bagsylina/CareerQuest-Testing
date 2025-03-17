@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import ro.unibuc.careerquest.dto.Job;
+
 /**
  * No need to implement this interface.
  * Spring Data MongoDB automatically creates a class it implementing the interface when you run the application.
@@ -22,5 +24,6 @@ public interface JobRepository extends MongoRepository<JobEntity, String> {
 
     List<JobEntity> findByLocation(String location);
 
+    List<Job> findByPriority(String employer);
 
 }
