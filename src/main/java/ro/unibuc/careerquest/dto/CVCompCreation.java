@@ -1,4 +1,4 @@
-package ro.unibuc.careerquest.data;
+package ro.unibuc.careerquest.dto;
 
 import java.time.LocalDate;
 
