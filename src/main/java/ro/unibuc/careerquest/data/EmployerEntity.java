@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.unibuc.careerquest.data.CVComponent;
-
 import org.springframework.data.annotation.Id;
 
 public class EmployerEntity {
@@ -21,7 +19,7 @@ public class EmployerEntity {
 
     public EmployerEntity() {}
 
-    public EmployerEntity(String id, String name, String email, String phone, String company, LocalDate lastPaymenDate, boolean premium) {
+    public EmployerEntity(String id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;

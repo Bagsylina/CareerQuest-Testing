@@ -13,6 +13,4 @@ import org.springframework.stereotype.Repository;
 public interface EmployerRepository extends MongoRepository<EmployerEntity, String> {
 
     EmployerEntity findByName(String title);
-    List<EmployerEntity> findAll(String description);    
-
 }

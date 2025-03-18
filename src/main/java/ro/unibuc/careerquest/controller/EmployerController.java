@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-
 public class EmployerController {
     @Autowired
     private EmployerService empsService;
