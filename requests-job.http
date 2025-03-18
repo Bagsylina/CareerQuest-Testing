@@ -1,0 +1,60 @@
+###################### JOBS
+GET http://localhost:8080/job
+
+######
+GET http://localhost:8080/hello
+
+####
+
+POST http://localhost:8080/job
+Content-Type: application/json
+
+{
+    "title": "Software developer",
+    "description": "8 hr workdays, a year at least",
+    "employer": "Adobe",
+    "salary": 5000,
+    "location": "San Francisco",
+    "abilities": ["Java", "C"],
+    "domains": ["SWE"],
+    "characteristics": ["paid leave", "benefits"]
+}
+
+# {
+#     "title": "Frontend developer",
+#     "description": "half a year contract",
+#     "employer": "Orange",
+#     "salary": 5000,
+#     "location": "Bucharest",
+#     "abilities": ["Typescript", "React"],
+#     "domains": ["Frontend"],
+#     "characteristics": ["paid leave"]
+# }
+# {
+#     "title": "QA Engineer",
+#     "description": "part-time contract",
+#     "employer": "Amazon",
+#     "salary": 10000,
+#     "location": "London",
+#     "abilities": ["DevOps", "Agile"],
+#     "domains": ["Testing", "Development", "Delivery", "DevOps"],
+#     "characteristics": ["hybrid"]
+# }
+
+### Update
+PUT http://localhost:8080/job/1
+Content-Type: application/json
+
+{
+    "title": "Senior Software developer",
+    "description": "8 hr workdays, a year at least",
+    "employer": "Adobe",
+    "salary": 5000,
+    "location": "San Francisco",
+    "abilities": ["Java", "C"],
+    "domains": ["SWE", ""],
+    "characteristics": ["paid leave", "benefits"]
+}
+
+####
+DELETE http://localhost:8080/job/4

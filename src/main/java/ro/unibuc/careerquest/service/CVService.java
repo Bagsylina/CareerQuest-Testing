@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ro.unibuc.careerquest.data.CVCompCreation;
+import ro.unibuc.careerquest.dto.CVCompCreation;
 import ro.unibuc.careerquest.data.CVComponent;
 import ro.unibuc.careerquest.data.CVEntity;
 import ro.unibuc.careerquest.data.CVRepository;
