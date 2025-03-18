@@ -13,7 +13,7 @@ public class Employer {
 
     public Employer() {}
 
-    public Employer(String id, String name, String email, String phone, String company, LocalDate lastPaymenDate, boolean premium) {
+    public Employer(String id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,7 +31,7 @@ public class Employer {
     }
 
 
-      public LocalDate getLastPaymentDate()
+    public LocalDate getLastPaymentDate()
     {
         return lastPaymentDate;
     }

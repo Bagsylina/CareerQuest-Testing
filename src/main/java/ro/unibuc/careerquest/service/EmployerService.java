@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class EmployerService {
 
-     @Autowired
+    @Autowired
     private EmployerRepository employerRepository;
 
     private final AtomicLong counter = new AtomicLong();
