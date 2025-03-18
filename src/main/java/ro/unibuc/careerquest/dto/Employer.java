@@ -1,4 +1,4 @@
-package main.java.ro.unibuc.careerquest.dto;
+package ro.unibuc.careerquest.dto;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public class Employer {
 
     public Employer() {}
 
-    public Employer(String id, String name, String email, String phone, String company, LocalDate lastPaymenDate, boolean premium) {
+    public Employer(String id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;

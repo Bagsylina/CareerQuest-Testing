@@ -1,9 +1,9 @@
-package main.java.ro.unibuc.careerquest.service;
+package ro.unibuc.careerquest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import main.java.ro.unibuc.careerquest.dto.Employer;
+import ro.unibuc.careerquest.dto.Employer;
 import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.EmployerRepository;
 
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class EmployerService {
 
-     @Autowired
+    @Autowired
     private EmployerRepository employerRepository;
 
     private final AtomicLong counter = new AtomicLong();
