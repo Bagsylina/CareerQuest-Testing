@@ -2,6 +2,8 @@ package ro.unibuc.careerquest.dto;
 
 import java.time.Period;
 
+import ro.unibuc.careerquest.data.UserEntity;
+
 import java.time.LocalDate;
 
 public class User {
@@ -42,6 +44,23 @@ public class User {
             this.age = 0;
         this.email = email;
         this.phone = phone;
+    }
+
+    public User(UserEntity user) {
+        this.username = user.getUsername();
+        this.description = user.getDescription();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.fullName = user.getFullName();
+        this.birthdate = user.getBirthdate();
+        if(birthdate != null) {
+            LocalDate currentDate = LocalDate.now();
+            this.age = Period.between(birthdate, currentDate).getYears();
+        }
+        else
+            this.age = 0;
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
     }
 
     public String getUsername() {return username;}

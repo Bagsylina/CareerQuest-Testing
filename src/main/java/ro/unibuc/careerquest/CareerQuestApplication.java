@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import ro.unibuc.careerquest.data.CVRepository;
-import ro.unibuc.careerquest.data.UserEntity;
 import ro.unibuc.careerquest.data.UserRepository;
-import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.data.ApplicationRepository;
 
