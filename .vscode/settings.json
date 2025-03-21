@@ -2,5 +2,9 @@
     "java.server.launchMode": "Standard",
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.debug.settings.onBuildFailureProceed": true,
-    "makefile.configureOnOpen": true
+    "makefile.configureOnOpen": true,
+    "java.project.sourcePaths": [
+        "src/main/java"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }

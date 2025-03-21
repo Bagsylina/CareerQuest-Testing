@@ -17,7 +17,10 @@ import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.dto.UserCreation;
+import ro.unibuc.careerquest.data.ApplicationEntity;
+import ro.unibuc.careerquest.data.ApplicationRepository;
 import ro.unibuc.careerquest.exception.InvalidEmailException;
+import ro.unibuc.careerquest.exception.InvalidPasswordException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
 
@@ -30,31 +33,37 @@ public class UserService {
     @Autowired
     private CVRepository cvRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
     private final AtomicLong counter = new AtomicLong();
 
     private static final String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    private static final Pattern emailPattern = Pattern.compile(emailRegex);
+    
+    private static final Pattern uppercasePattern = Pattern.compile("[A-Z]");
+    private static final Pattern lowercasePattern = Pattern.compile("[a-z]");
+    private static final Pattern digitPattern = Pattern.compile("[0-9]");
+    private static final Pattern specialCharPattern = Pattern.compile("[^a-zA-Z0-9]");
 
     public List<User> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         return users.stream()
-                .map(user -> new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(), 
-                    user.getBirthdate(), user.getEmail(), user.getPhone()))
+                .map(user -> new User(user))
                 .collect(Collectors.toList());
     }
 
     public List<User> getAllUsersByName(String name) {
         List<UserEntity> users = userRepository.findByFullNameContaining(name);
         return users.stream()
-                .map(user -> new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(), 
-                    user.getBirthdate(), user.getEmail(), user.getPhone()))
+                .map(user -> new User(user))
                 .collect(Collectors.toList());
     }
 
     public User getUser(String username) throws UserNotFoundException {
         Optional<UserEntity> optionalUser = userRepository.findById(username);
         UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
-        return new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(),
-                        user.getBirthdate(), user.getEmail(), user.getPhone());
+        return new User(user);
     }
 
     public User createUser(UserCreation credentials) throws UsernameTakenException, InvalidEmailException {
@@ -63,12 +72,20 @@ public class UserService {
         optionalUser.ifPresent(user -> {throw new UsernameTakenException(user.getUsername());});
 
         //check if email is valid
-        boolean validEmail = Pattern.compile(emailRegex)
-                                    .matcher(credentials.getEmail())
-                                    .matches();
-        if(!validEmail) {
+        boolean validEmail = emailPattern.matcher(credentials.getEmail()).matches();
+        if(!validEmail)
             throw new InvalidEmailException(credentials.getEmail());
-        }
+
+        //check if password is valid
+        String password = credentials.getPassword();
+        boolean passMinLength = password.length() >= 8;
+        boolean hasUppercase = uppercasePattern.matcher(password).find();
+        boolean hasLowercase = lowercasePattern.matcher(password).find();
+        boolean hasDigit = digitPattern.matcher(password).find();
+        boolean hasSpecial = specialCharPattern.matcher(password).find();
+
+        if(!passMinLength || !hasUppercase || !hasLowercase || !hasDigit || !hasSpecial)
+            throw new InvalidPasswordException();
 
         //create user in database
         UserEntity user = new UserEntity(credentials.getUsername(), credentials.getPassword(), credentials.getEmail());
@@ -82,9 +99,7 @@ public class UserService {
         UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(username));
 
         if(credentials.getEmail() != null) {
-            boolean validEmail = Pattern.compile(emailRegex)
-                                        .matcher(credentials.getEmail())
-                                        .matches();
+            boolean validEmail = emailPattern.matcher(credentials.getEmail()).matches();
             if(!validEmail) {
                 throw new InvalidEmailException(credentials.getEmail());
             }
@@ -92,13 +107,23 @@ public class UserService {
             user.setEmail(credentials.getEmail());
         }
 
-        if(credentials.getPassword() != null)
-            user.setPassword(credentials.getPassword());
+        if(credentials.getPassword() != null) {
+            String password = credentials.getPassword();
+            boolean passMinLength = password.length() >= 8;
+            boolean hasUppercase = uppercasePattern.matcher(password).matches();
+            boolean hasLowercase = lowercasePattern.matcher(password).matches();
+            boolean hasDigit = digitPattern.matcher(password).matches();
+            boolean hasSpecial = specialCharPattern.matcher(password).matches();
+
+            if(!passMinLength || !hasUppercase || !hasLowercase || !hasDigit || !hasSpecial)
+                throw new InvalidPasswordException();
+
+            user.setPassword(password);
+        }
 
         userRepository.save(user);
 
-        return new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(),
-            user.getBirthdate(), user.getEmail(), user.getPhone());
+        return new User(user);
     }
 
     public User updateUser(String username, User userData) throws UserNotFoundException {
@@ -118,8 +143,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return new User(user.getUsername(), user.getDescription(), user.getFirstName(), user.getLastName(),
-            user.getBirthdate(), user.getEmail(), user.getPhone());
+        return new User(user);
     }  
 
     public void deleteUser(String username) throws UserNotFoundException {
@@ -137,8 +161,7 @@ public class UserService {
         List<CVEntity> cvs = cvRepository.findByUserId(username);
 
         return cvs.stream()
-                .map(cv -> new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                            cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages()))
+                .map(cv -> new CV(cv))
                 .collect(Collectors.toList());
     }
 
@@ -150,5 +173,10 @@ public class UserService {
         cvRepository.save(cv);
 
         return new CV(cv.getId(), username, cv.getDescription(), cv.getAchievements());
+    }
+
+    public List<ApplicationEntity> getApplications(String username) {
+        List<ApplicationEntity> applications = applicationRepository.findByUsername(username);
+        return applications;
     }
 }
