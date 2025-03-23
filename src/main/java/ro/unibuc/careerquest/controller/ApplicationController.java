@@ -54,15 +54,5 @@ public class ApplicationController {
         return applicationService.getApplicationsOfUser(username);
     }
 
-    @GetMapping("/app/match/{jobId}")
-    @ResponseBody
-    public double match(@PathVariable String jobId, @RequestParam String cvId) throws JobNotFoundException, UserNotFoundException, CVNotFoundException {
-        return applicationService.match(jobId, cvId);
-    }
-
-    @GetMapping("/app/recommend/{cvId}")
-    @ResponseBody
-    public List<Job> match(@PathVariable String cvId) throws JobNotFoundException, UserNotFoundException, CVNotFoundException {
-        return applicationService.recommend(cvId);
-    }
+    
 }
