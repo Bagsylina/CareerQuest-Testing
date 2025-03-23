@@ -21,6 +21,12 @@ public class CVController {
     @Autowired
     private CVService cvService;
 
+    @GetMapping("/cv/{id}")
+    @ResponseBody
+    public CV getCV(@PathVariable String id) throws CVNotFoundException {
+        return cvService.getCV(id);
+    }
+
     @PutMapping("/cv/{id}")
     @ResponseBody
     public CV updateCV(@PathVariable String id, @RequestBody CVCreation cv) throws CVNotFoundException {

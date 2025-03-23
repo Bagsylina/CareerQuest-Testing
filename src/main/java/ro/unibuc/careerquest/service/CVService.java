@@ -22,6 +22,13 @@ public class CVService {
     @Autowired
     private CVRepository cvRepository;
 
+    public CV getCV(String id) throws CVNotFoundException {
+        Optional<CVEntity> optionalCV = cvRepository.findById(id);
+        CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
+
+        return new CV(cv);
+    }
+
     public CV updateCV(String id, CVCreation cvData) throws CVNotFoundException {
         Optional<CVEntity> optionalCV = cvRepository.findById(id);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));

@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.bson.codecs.jsr310.LocalDateCodec;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -96,11 +95,11 @@ class UserControllerTest {
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         Pattern emailPattern = Pattern.compile(emailRegex);
 
-        // Mock behavior for invalid email
+        //Mock behavior for invalid email
         doThrow(new InvalidEmailException("bademail"))
             .when(userService).createUser(argThat(c -> !emailPattern.matcher(c.getEmail()).matches()));
 
-        // Mock behavior for invalid password
+        //Mock behavior for invalid password
         doThrow(new InvalidPasswordException())
             .when(userService).createUser(argThat(c -> {
                 String password = c.getPassword();
@@ -147,11 +146,11 @@ class UserControllerTest {
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         Pattern emailPattern = Pattern.compile(emailRegex);
 
-        // Mock behavior for invalid email
+        //Mock behavior for invalid email
         doThrow(new InvalidEmailException("bademail"))
             .when(userService).updateCredentials(eq(username), argThat(c -> !emailPattern.matcher(c.getEmail()).matches()));
 
-        // Mock behavior for invalid password
+        //Mock behavior for invalid password
         doThrow(new InvalidPasswordException())
             .when(userService).updateCredentials(eq(username), argThat(c -> {
                 String password = c.getPassword();
