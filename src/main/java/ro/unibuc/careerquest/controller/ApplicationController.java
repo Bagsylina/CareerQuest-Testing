@@ -2,12 +2,11 @@ package ro.unibuc.careerquest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ro.unibuc.careerquest.service.ApplicationService;
 import ro.unibuc.careerquest.dto.Application;
 import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
@@ -22,6 +21,12 @@ public class ApplicationController {
 
     @Autowired
     private ApplicationService applicationService;
+    
+    @GetMapping("/applications/hello")
+    @ResponseBody
+    public String sayHello() {
+        return "hello application controller";
+    }
     
     @GetMapping("/app/{id}")
     @ResponseBody
