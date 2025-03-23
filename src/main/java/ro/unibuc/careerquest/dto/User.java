@@ -2,6 +2,8 @@ package ro.unibuc.careerquest.dto;
 
 import java.time.Period;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import ro.unibuc.careerquest.data.UserEntity;
 
 import java.time.LocalDate;
@@ -16,6 +18,7 @@ public class User {
     private String lastName;
     private String fullName;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     private int age;
     

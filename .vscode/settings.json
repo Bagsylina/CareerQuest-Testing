@@ -4,7 +4,8 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "makefile.configureOnOpen": true,
     "java.project.sourcePaths": [
-        "src/main/java"
+        "src/main/java",
+        "src/test/java"
     ],
     "java.compile.nullAnalysis.mode": "automatic"
 }
