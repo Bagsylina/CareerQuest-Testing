@@ -3,6 +3,7 @@ package ro.unibuc.careerquest.data;
 import org.springframework.data.annotation.Id;
 
 import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.dto.JobContent;
 
 import java.util.List;
 import java.util.ArrayList;

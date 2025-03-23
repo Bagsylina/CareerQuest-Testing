@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.dto.JobContent;
 import ro.unibuc.careerquest.dto.Application;
 import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;

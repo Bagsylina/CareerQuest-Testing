@@ -1,4 +1,4 @@
-package ro.unibuc.careerquest.data;
+package ro.unibuc.careerquest.dto;
 import java.util.List;
 import java.util.ArrayList;
 

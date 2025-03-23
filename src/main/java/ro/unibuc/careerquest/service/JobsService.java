@@ -3,10 +3,10 @@ package ro.unibuc.careerquest.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.dto.JobContent;
 import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.dto.Application;
 import ro.unibuc.careerquest.data.ApplicationRepository;
