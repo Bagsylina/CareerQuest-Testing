@@ -17,6 +17,9 @@ import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.dto.User;
 import ro.unibuc.careerquest.dto.UserCreation;
+import ro.unibuc.careerquest.data.ApplicationEntity;
+import ro.unibuc.careerquest.dto.Application;
+import ro.unibuc.careerquest.data.ApplicationRepository;
 import ro.unibuc.careerquest.exception.InvalidEmailException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
@@ -29,6 +32,9 @@ public class UserService {
     
     @Autowired
     private CVRepository cvRepository;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     private final AtomicLong counter = new AtomicLong();
 
@@ -150,5 +156,10 @@ public class UserService {
         cvRepository.save(cv);
 
         return new CV(cv.getId(), username, cv.getDescription(), cv.getAchievements());
+    }
+
+    public List<ApplicationEntity> getApplications(String username) {
+        List<ApplicationEntity> applications = applicationRepository.findByUsername(username);
+        return applications;
     }
 }
