@@ -26,24 +26,21 @@ import java.util.*;
 public class MatchingService {
 
     @Autowired
-    private JobRepository jobDatabase;
-
-    @Autowired
-    private UserRepository userRepository;
+    private JobRepository jobRepository;
     
     @Autowired
     private CVRepository cvRepository;
 
     public double match(String jobId, String cvId) throws UserNotFoundException, JobNotFoundException, CVNotFoundException {
         
-        Optional<JobEntity> optionalJob = jobDatabase.findById(jobId);
+        Optional<JobEntity> optionalJob = jobRepository.findById(jobId);
         JobEntity job = optionalJob.orElseThrow(() -> new JobNotFoundException(jobId));
 
         Optional<CVEntity> optionalCV = cvRepository.findById(cvId);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(cvId)); // aici ar trb sa avem
 
-        String username = cv.getUserId();
-        UserEntity user = userRepository.findByUsername(username);
+        // String username = cv.getUserId();
+        // UserEntity user = userRepository.findByUsername(username);
         //UserEntity user = optionalUser.orElseThrow(() -> new UserNotFoundException(String.valueOf(username)));
 
         List<String> user_skills = new ArrayList<>(cv.getSkills());
@@ -101,7 +98,7 @@ public class MatchingService {
         Optional<CVEntity> optionalCV = cvRepository.findById(cvId);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(cvId)); 
 
-        List<JobEntity> allJobs = jobDatabase.findAll();
+        List<JobEntity> allJobs = jobRepository.findAll();
 
         List<Job> realJobs = allJobs.stream()
                                       .map(job -> new Job(job))

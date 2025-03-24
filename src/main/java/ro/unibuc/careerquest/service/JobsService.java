@@ -126,32 +126,3 @@ public class JobsService {
         return fullApp;
     }
 }
-
-// public Job buildJob( String title, String description, String company, String employer, String[] abilities, String[] domains, String[] characteristics, Integer salary, String location) {
-    //     return new Job(Long.toString(counter.incrementAndGet()), title, description, company, employer, abilities, domains, characteristics, salary, location);
-    // }
-
-    // public Job buildJobFromTitle(String title) throws EntityNotFoundException {
-    //     JobEntity entity = jobDatabase.findByTitle(title);
-    //     if (entity == null) {
-    //         throw new EntityNotFoundException(title);
-    //     }
-    //     return new Job(Long.toString(counter.incrementAndGet()), entity); // implemented constructor for ease
-    // }
-
-// public List<Job> saveAll(List<Job> jobs) {
-    //     List<JobEntity> entities = jobs.stream()
-    //             .map(job -> {
-    //                 JobEntity entity = new JobEntity(job);
-    //                 return entity;
-    //             })
-    //             .collect(Collectors.toList());
-
-    //     List<JobEntity> savedEntities = jobDatabase.saveAll(entities);
-
-    //     return savedEntities.stream()
-    //             .map(entity -> new Job(entity))
-    //             .collect(Collectors.toList());
-    // }
-
-    /// ???
