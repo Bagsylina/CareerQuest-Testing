@@ -9,9 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,19 +28,19 @@ import ro.unibuc.careerquest.exception.FieldNotFoundException;
 import ro.unibuc.careerquest.service.CVService;
 import ro.unibuc.careerquest.service.UserService;
 
-public class CVControllerTest {
+class CVControllerTest {
 
     @Mock
-    UserService userService;
+    private UserService userService;
 
     @Mock
-    CVService cvService;
+    private CVService cvService;
 
     @InjectMocks
     private UserController userController;
     
     @InjectMocks
-    CVController cvController;
+    private CVController cvController;
 
     private MockMvc mockMvc;
 
@@ -272,6 +269,6 @@ public class CVControllerTest {
             .andExpect(status().isOk());
 
          //check cv is deleted
-         verify(cvService, times(1)).deleteCV("1");
+        verify(cvService, times(1)).deleteCV("1");
     }
 }

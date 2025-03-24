@@ -49,47 +49,47 @@ class UserControllerTest {
 
     @Test
     void test_getAllUsers() throws Exception {
-        List<User> users = Arrays.asList(new User("bagsylina", "fabian@gmail.com"), new User("sw.andreei", "andrei@gmail.com"));
+        List<User> users = Arrays.asList(new User("user1", "user1@email.com"), new User("user2", "user2@email.com"));
         when(userService.getAllUsers()).thenReturn(users);
 
         mockMvc.perform(get("/users"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].username").value("bagsylina"))
-            .andExpect(jsonPath("$[0].email").value("fabian@gmail.com"))
-            .andExpect(jsonPath("$[1].username").value("sw.andreei"))
-            .andExpect(jsonPath("$[1].email").value("andrei@gmail.com"));
+            .andExpect(jsonPath("$[0].username").value("user1"))
+            .andExpect(jsonPath("$[0].email").value("user1@email.com"))
+            .andExpect(jsonPath("$[1].username").value("user2"))
+            .andExpect(jsonPath("$[1].email").value("user2@email.com"));
     }
 
     @Test
     void test_getAllUsersByName() throws Exception {
         String name = "Fabian";
-        List<User> users = Arrays.asList(new User("bagsylina", null, "Fabian", "Anghel", null, "fabian@gmail.com", null));
+        List<User> users = Arrays.asList(new User("user1", null, "Fabian", "Anghel", null, "user1@email.com", null));
         when(userService.getAllUsersByName(name)).thenReturn(users);
 
 
         mockMvc.perform(get("/users/{name}", name))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].username").value("bagsylina"))
-            .andExpect(jsonPath("$[0].email").value("fabian@gmail.com"))
+            .andExpect(jsonPath("$[0].username").value("user1"))
+            .andExpect(jsonPath("$[0].email").value("user1@email.com"))
             .andExpect(jsonPath("$[0].firstName").value("Fabian"))
             .andExpect(jsonPath("$[0].lastName").value("Anghel"));
     }
 
     @Test
     void test_getUser() throws Exception {
-        String username = "bagsylina";
-        User user = new User(username, "fabian@gmail.com");
+        String username = "user1";
+        User user = new User(username, "user1@email.com");
         when(userService.getUser(username)).thenReturn(user);
 
         mockMvc.perform(get("/user/{id}", username))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.username").value("bagsylina"))
-            .andExpect(jsonPath("$.email").value("fabian@gmail.com"));
+            .andExpect(jsonPath("$.username").value("user1"))
+            .andExpect(jsonPath("$.email").value("user1@email.com"));
     }
 
     @Test
     void test_createUser() throws Exception {
-        User user = new User("bagsylina", "fabian@gmail.com");
+        User user = new User("user1", "user1@email.com");
         when(userService.createUser(any(UserCreation.class))).thenReturn(user);
 
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -113,7 +113,7 @@ class UserControllerTest {
         //bad password
         assertThrows(ServletException.class,
         () -> mockMvc.perform(post("/user")
-            .content("{\"username\": \"bagsylina\", \"password\": \"12345678\", \"email\": \"fabian@gmail.com\"}")
+            .content("{\"username\": \"user1\", \"password\": \"12345678\", \"email\": \"user1@email.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isInternalServerError())
             .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidPasswordException))
@@ -122,7 +122,7 @@ class UserControllerTest {
         //bad email
         assertThrows(ServletException.class,
         () -> mockMvc.perform(post("/user")
-            .content("{\"username\": \"bagsylina\", \"password\": \"Parola1@\", \"email\": \"bademail\"}")
+            .content("{\"username\": \"user1\", \"password\": \"Parola1@\", \"email\": \"bademail\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isInternalServerError())
             .andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidEmailException))
@@ -130,17 +130,17 @@ class UserControllerTest {
 
         //good user
         mockMvc.perform(post("/user")
-            .content("{\"username\": \"bagsylina\", \"password\": \"Parola1@\", \"email\": \"fabian@gmail.com\"}")
+            .content("{\"username\": \"user1\", \"password\": \"Parola1@\", \"email\": \"user1@email.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.username").value("bagsylina"))
-            .andExpect(jsonPath("$.email").value("fabian@gmail.com"));
+            .andExpect(jsonPath("$.username").value("user1"))
+            .andExpect(jsonPath("$.email").value("user1@email.com"));
     }
 
     @Test
     void test_updateCredentials() throws Exception {
-        String username = "bagsylina";
-        User updatedUser = new User(username, "bagsylina@gmail.com");
+        String username = "user1";
+        User updatedUser = new User(username, "user1@email.com");
         when(userService.updateCredentials(eq(username), any(UserCreation.class))).thenReturn(updatedUser);
 
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -180,41 +180,41 @@ class UserControllerTest {
 
         //good user
         mockMvc.perform(put("/user-cred/{id}", username)
-            .content("{\"email\": \"bagsylina@gmail.com\"}")
+            .content("{\"email\": \"user1@email.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.username").value("bagsylina"))
-            .andExpect(jsonPath("$.email").value("bagsylina@gmail.com"));
+            .andExpect(jsonPath("$.username").value("user1"))
+            .andExpect(jsonPath("$.email").value("user1@email.com"));
     }
 
     @Test 
     void test_updateUser() throws Exception {
-        String username = "bagsylina";
-        User updatedUser = new User(username, "descriere", "Fabian", "Anghel", LocalDate.of(2003, 4, 2), "fabian@gmail.com", null);
+        String username = "user1";
+        User updatedUser = new User(username, "descriere", "Fabian", "Anghel", LocalDate.of(2003, 4, 2), "user1@email.com", null);
         when(userService.updateUser(eq(username), any(User.class))).thenReturn(updatedUser);
 
         mockMvc.perform(put("/user/{id}", username)
             .content("{\"description\": \"descriere\", \"firstName\": \"Fabian\", \"lastName\": \"Anghel\", \"birthdate\": \"2003-04-02\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.username").value("bagsylina"))
+            .andExpect(jsonPath("$.username").value("user1"))
             .andExpect(jsonPath("$.description").value("descriere"))
             .andExpect(jsonPath("$.firstName").value("Fabian"))
             .andExpect(jsonPath("$.lastName").value("Anghel"))
             .andExpect(jsonPath("$.birthdate").value("2003-04-02"))
             .andExpect(jsonPath("$.age").value("21")) //change to 22 next week
-            .andExpect(jsonPath("$.email").value("fabian@gmail.com"));
+            .andExpect(jsonPath("$.email").value("user1@email.com"));
     }
 
     @Test
     void test_deleteUser() throws Exception {
-        String username = "bagsylina";
-        User user = new User(username, "fabian@gmail.com");
+        String username = "user1";
+        User user = new User(username, "user1@email.com");
         when(userService.createUser(any(UserCreation.class))).thenReturn(user);
 
         //first create user
         mockMvc.perform(post("/user")
-            .content("{\"username\": \"bagsylina\", \"password\": \"Parola1@\", \"email\": \"fabian@gmail.com\"}")
+            .content("{\"username\": \"user1\", \"password\": \"Parola1@\", \"email\": \"user1@email.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
         
@@ -228,7 +228,7 @@ class UserControllerTest {
 
     @Test
     void test_getCVs() throws Exception {
-        String username = "bagsylina";
+        String username = "user1";
         List<CV> cvs = Arrays.asList(new CV("1", username), new CV("2", username));
         when(userService.getCVs(username)).thenReturn(cvs);
 
@@ -242,7 +242,7 @@ class UserControllerTest {
 
     @Test
     void test_addCV() throws Exception {
-        String username = "bagsylina";
+        String username = "user1";
         CV cv = new CV("1", username, "descriere", "ceva");
         when(userService.addCV(eq(username), any(CVCreation.class))).thenReturn(cv);
 
@@ -258,7 +258,7 @@ class UserControllerTest {
 
     @Test
     void test_getApplications() throws Exception {
-        String username = "bagsylina";
+        String username = "user1";
         List<ApplicationEntity> applications = Arrays.asList(new ApplicationEntity("1", "1", username, "1"), new ApplicationEntity("2", "2", username, "1"));
         when(userService.getApplications(username)).thenReturn(applications);
 
