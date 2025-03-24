@@ -52,10 +52,13 @@ public class EmployerService {
 
     public Employer saveEmployer(Employer employer) {
         EmployerEntity entity = new EmployerEntity();
-        entity.setId(employer.getId());
+
         entity.setName(employer.getName());
+        entity.setCompany(employer.getCompany());
+        entity.setEmail(employer.getEmail());
+        entity.setPhone(employer.getPhone());
         employerRepository.save(entity);
-        return new Employer(entity.getId(), entity.getName());
+        return new Employer(entity.getId(), entity.getName(),entity.getEmail(),entity.getPhone(),entity.getCompany(),null,false);
     }
 
     public List<Employer> saveAll(List<Employer> employers) {

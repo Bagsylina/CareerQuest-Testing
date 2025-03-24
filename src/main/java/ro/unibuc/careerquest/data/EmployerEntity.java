@@ -9,7 +9,8 @@ import org.springframework.data.annotation.Id;
 public class EmployerEntity {
 
     @Id
-    private String id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String email;
     private String phone;
@@ -19,7 +20,7 @@ public class EmployerEntity {
 
     public EmployerEntity() {}
 
-    public EmployerEntity(String id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
+    public EmployerEntity(Long id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -45,11 +46,11 @@ public class EmployerEntity {
         this.premium = premium;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
