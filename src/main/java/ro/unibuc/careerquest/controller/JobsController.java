@@ -58,6 +58,7 @@ public class JobsController {
         jobsService.deleteJob(id);
     }
 
+    // list of all the jobs posted by an employer
     @GetMapping("/jobs/employer/{employerId}")
     @ResponseBody
     public List<JobEntity> getJobsByEmployer(@PathVariable String employerId) {

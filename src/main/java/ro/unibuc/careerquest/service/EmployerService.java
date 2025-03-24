@@ -25,15 +25,7 @@ public class EmployerService {
     private static final String helloTemplate = "Hello, %s!";
     private static final String informationTemplate = "%s : %s!";
 
-
-    public Employer buildEmployerFromInfo(String name) throws EntityNotFoundException {
-        EmployerEntity entity = employerRepository.findByName(name);
-        if (entity == null) {
-            throw new EntityNotFoundException(name);
-        }
-        return new Employer(Long.toString(counter.incrementAndGet()), String.format(informationTemplate, entity.getName(), entity.getCompany()));
-    }
-
+    //list of all the employers
     public List<Employer> getAllEmployers() {
         List<EmployerEntity> entities = employerRepository.findAll();
         return entities.stream()
@@ -47,6 +39,7 @@ public class EmployerService {
     //     return new Employer(entity.getId(), entity.getName());
     // }
 
+    //search if employer by id exist
     public Employer getEmployerById(String employerId) {
         // Căutăm employer-ul după ID
         EmployerEntity entity = employerRepository.findById(employerId)
@@ -82,6 +75,7 @@ public class EmployerService {
                 .collect(Collectors.toList());
     }
 
+    //modifying an emplyer
     public Employer updateEmployer(String id, Employer emp) throws EntityNotFoundException {
         EmployerEntity entity = employerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
@@ -89,15 +83,7 @@ public class EmployerService {
         employerRepository.save(entity);
         return new Employer(entity.getId(), entity.getName());
     }
-    public Employer updatePayment( String id, LocalDate lastPaymentDate , boolean premiu) throws EntityNotFoundException {
-        EmployerEntity entity = employerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        entity.setLastPaymentDate(lastPaymentDate);
-        entity.setPremium(premiu);
-        employerRepository.save(entity);
-        return new Employer(entity.getId(), entity.getName());
-    }
-
+    
     public void deleteEmployer(String id) throws EntityNotFoundException {
         EmployerEntity entity = employerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
@@ -108,4 +94,13 @@ public class EmployerService {
         employerRepository.deleteAll();
     }
     
+    public Employer updatePayment( String id, LocalDate lastPaymentDate , boolean premiu) throws EntityNotFoundException {
+        EmployerEntity entity = employerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
+        entity.setLastPaymentDate(lastPaymentDate);
+        entity.setPremium(premiu);
+        employerRepository.save(entity);
+        return new Employer(entity.getId(), entity.getName());
+    }
+
 }

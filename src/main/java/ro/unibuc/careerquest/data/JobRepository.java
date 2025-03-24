@@ -24,7 +24,7 @@ public interface JobRepository extends MongoRepository<JobEntity, String> {
 
     List<JobEntity> findByLocation(String location);
 
-    List<Job> findByPriority(String employer);
+    //List<Job> findByPriority(String employer);
 
     long countByEmployer(String employer);
 
