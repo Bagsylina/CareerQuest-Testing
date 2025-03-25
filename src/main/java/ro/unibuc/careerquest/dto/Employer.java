@@ -22,7 +22,14 @@ public class Employer {
         this.lastPaymentDate = lastPaymentDate;
         this.premium = premium;
     }
-  
+    
+    public Employer(String id, String name, String email, String phone, String company) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.company = company;
+    }
 
     public Employer(String id, String name) {
         this.id = id;
