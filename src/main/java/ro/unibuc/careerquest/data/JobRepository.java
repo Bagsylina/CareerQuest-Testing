@@ -1,3 +1,4 @@
+
 package ro.unibuc.careerquest.data;
 
 import java.util.List;

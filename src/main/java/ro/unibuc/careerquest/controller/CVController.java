@@ -1,15 +1,13 @@
 package ro.unibuc.careerquest.controller;
 
-import java.text.FieldPosition;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//import ro.unibuc.careerquest.dto.CVCompCreation;
 import ro.unibuc.careerquest.data.CVComponent;
+import ro.unibuc.careerquest.dto.CVCompCreation;
+
 import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
@@ -25,17 +23,23 @@ public class CVController {
     @Autowired
     private CVService cvService;
 
+    @GetMapping("/cv/{id}")
+    @ResponseBody
+    public CV getCV(@PathVariable String id) throws CVNotFoundException {
+        return cvService.getCV(id);
+    }
+
     @PutMapping("/cv/{id}")
     @ResponseBody
     public CV updateCV(@PathVariable String id, @RequestBody CVCreation cv) throws CVNotFoundException {
         return cvService.updateCV(id, cv);
     }
 
-    // @PutMapping("/cv-add-exp/{id}")
-    // @ResponseBody 
-    // public CV addExperience(@PathVariable String id, @RequestBody CVCompCreation experience) throws CVNotFoundException, FieldNotFoundException {
-    //     return cvService.addExperience(id, experience);
-    // }
+    @PutMapping("/cv-add-exp/{id}")
+    @ResponseBody 
+    public CV addExperience(@PathVariable String id, @RequestBody CVCompCreation experience) throws CVNotFoundException, FieldNotFoundException {
+        return cvService.addExperience(id, experience);
+    }
 
     @PutMapping("/cv-add-tag/{id}")
     @ResponseBody

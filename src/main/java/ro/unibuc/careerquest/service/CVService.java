@@ -2,9 +2,6 @@ package ro.unibuc.careerquest.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +22,13 @@ public class CVService {
     @Autowired
     private CVRepository cvRepository;
 
+    public CV getCV(String id) throws CVNotFoundException {
+        Optional<CVEntity> optionalCV = cvRepository.findById(id);
+        CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
+
+        return new CV(cv);
+    }
+
     public CV updateCV(String id, CVCreation cvData) throws CVNotFoundException {
         Optional<CVEntity> optionalCV = cvRepository.findById(id);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
@@ -36,8 +40,7 @@ public class CVService {
 
         cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+        return new CV(cv);
     }
 
     public CV addExperience(String id, CVCompCreation expData) throws CVNotFoundException, FieldNotFoundException {
@@ -70,8 +73,7 @@ public class CVService {
 
         cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+        return new CV(cv);
     }
 
     public CV addTag(String id, String field, String tag) throws CVNotFoundException, FieldNotFoundException {
@@ -94,8 +96,7 @@ public class CVService {
 
         cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+        return new CV(cv);
     }
 
     public CV removeExperience(String id, String field, int i) throws CVNotFoundException, FieldNotFoundException, IndexNotFoundException {
@@ -133,8 +134,7 @@ public class CVService {
 
         cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+        return new CV(cv);
     }
 
     public CV removeTag(String id, String field, int i) throws CVNotFoundException, FieldNotFoundException, IndexNotFoundException {
@@ -166,8 +166,7 @@ public class CVService {
 
         cvRepository.save(cv);
 
-        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
-                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
+        return new CV(cv);
     }
 
     public void deleteCV(String id) throws CVNotFoundException {

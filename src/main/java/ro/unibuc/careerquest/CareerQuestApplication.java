@@ -41,5 +41,4 @@ public class CareerQuestApplication {
 		jobDatabase.deleteAll();
 		employerRepository.deleteAll();
 	}
-
 }

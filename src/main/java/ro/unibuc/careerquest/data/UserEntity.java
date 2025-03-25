@@ -3,10 +3,6 @@ package ro.unibuc.careerquest.data;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserEntity {
     
