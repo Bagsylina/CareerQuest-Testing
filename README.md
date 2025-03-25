@@ -34,6 +34,9 @@ Suggest to a user what jobs he should apply to
 In case **make build** fails, before retrying:
  - **docker ps -a** => get the ID of the hello-build container
  - **docker rm [id]**
+——————
+In case requests are failing, try this:
+ - **curl http://localhost:8080/hello** => repeat until a pozitiv response
 
 To see mongo on web:
 
