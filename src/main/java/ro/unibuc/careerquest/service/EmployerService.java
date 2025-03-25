@@ -83,10 +83,14 @@ public class EmployerService {
     public Employer updateEmployer(String id, Employer emp) throws EntityNotFoundException {
         EmployerEntity entity = employerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        entity.setName(emp.getName());
-        entity.setCompany(emp.getCompany());
-        entity.setPhone(emp.getPhone());
-        entity.setEmail(emp.getEmail());
+        if(emp.getName()!= null)
+            entity.setName(emp.getName());
+        if(emp.getCompany()!=null)
+            entity.setCompany(emp.getCompany());
+        if(emp.getPhone()!=null)
+            entity.setPhone(emp.getPhone());
+        if(emp.getEmail()!=null)
+            entity.setEmail(emp.getEmail());
         employerRepository.save(entity);
         return new Employer(entity.getId(), entity.getName(),entity.getEmail(),entity.getPhone(),entity.getCompany());
     }
@@ -103,13 +107,14 @@ public class EmployerService {
 
     }
     
-    public Employer updatePayment( String id, LocalDate lastPaymentDate , boolean premiu) throws EntityNotFoundException {
+    public Employer updatePayment( String id) throws EntityNotFoundException {
         EmployerEntity entity = employerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
-        entity.setLastPaymentDate(lastPaymentDate);
-        entity.setPremium(premiu);
+        entity.setLastPaymentDate(LocalDate.now());
+        entity.setPremium(true);
         employerRepository.save(entity);
-        return new Employer(entity.getId(), entity.getName());
+        return new Employer(entity.getId(), entity.getName(),entity.getEmail(),entity.getPhone(),entity.getCompany(),entity.getLastPaymentDate(),entity.isPremium());
+  
     }
     
 

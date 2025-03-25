@@ -53,16 +53,15 @@ public class EmployerController {
     //delete employer
     @DeleteMapping("/employer/{id}")
     @ResponseBody
-    public void deleteEmployer(@PathVariable String id) throws EntityNotFoundException {
-        empsService.deleteEmployer(id);
+    public String deleteEmployer(@PathVariable String id) throws EntityNotFoundException {
+        return empsService.deleteEmployer(id);
     }
 
     //some employer is paying for premium
     @PutMapping("/employer/{id}/pay")
     @ResponseBody
     public Employer payForPremium(@PathVariable String id) {
-        Employer employer = empsService.updatePayment(id,LocalDate.now(), true);
-        return empsService.saveEmployer(employer);
+        return empsService.updatePayment(id);
     }
 
 }
