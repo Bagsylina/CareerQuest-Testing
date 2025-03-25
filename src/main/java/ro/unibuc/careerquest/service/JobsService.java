@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.data.JobEntity;
+import ro.unibuc.careerquest.data.EmployerRepository;
+import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.data.ApplicationEntity;
