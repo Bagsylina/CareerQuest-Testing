@@ -1,18 +1,38 @@
-### Test Request
-GET http://localhost:8080/test
 
-### Get all users
-GET http://localhost:8080/users
+#######
+POST http://localhost:8080/job
+Content-Type: application/json
 
-### Get all users by name
-GET http://localhost:8080/users/Fabian
+{
+    "title": "Software developer",
+    "description": "8 hr workdays, a year at least",
+    "employer": "Adobe",
+    "salary": 5000,
+    "location": "San Francisco",
+    "abilities": ["Java", "C"],
+    "domains": ["SWE"],
+    "characteristics": ["paid leave", "benefits"]
+}
 
+#### Example job 3
+POST http://localhost:8080/job
+Content-Type: application/json
+
+{
+    "title": "QA Engineer",
+    "description": "part-time contract",
+    "employer": "Amazon",
+    "salary": 10000,
+    "location": "London",
+    "abilities": ["DevOps", "Agile"],
+    "domains": ["Testing", "Development", "Delivery", "DevOps"],
+    "characteristics": ["hybrid"]
+}
+#===================================================
+#### Create User
 ### Create a user
 @postUsername = bagsylina
-
 @postPassword = 12345678
-//@postPassword = Parola1#
-
 @postEmail = fabian@bagsylina.com
 POST http://localhost:8080/user
 Content-Type: application/json
@@ -22,12 +42,6 @@ Content-Type: application/json
     "password": "{{postPassword}}",
     "email": "{{postEmail}}"
 }
-
-### Get a user
-GET http://localhost:8080/user/bagsylina
-
-### Delete a user
-DELETE http://localhost:8080/user/bagsylina
 
 ### Update a user
 @putFirstName = Fabian
@@ -58,15 +72,7 @@ Content-Type: application/json
     "email": "{{putEmail}}"
 }
 
-### Update bad email
-@badEmail = ceva
-PUT http://localhost:8080/user-cred/bagsylina
-Content-Type: application/json
-
-{
-    "email": "{{badEmail}}"
-}
-
+#===================================================
 ### Add a CV
 @postCVDesc = test
 @postCVAchieve = test
@@ -77,9 +83,6 @@ Content-Type: application/json
     "description": "{{postCVDesc}}",
     "achievements": "{{postCVAchieve}}"
 }
-
-### Get all CVs
-GET http://localhost:8080/user-cvs/bagsylina
 
 
 ### Update CV
@@ -102,24 +105,49 @@ Content-Type: application/json
     "institution": "University of Bucharest"
 }
 
-### Remove wrong education
-PUT http://localhost:8080/cv-rmv-exp/1?field=education&i=2
-
-### Remove education
-PUT http://localhost:8080/cv-rmv-exp/1?field=education&i=0
 
 ### Add a tag
 PUT http://localhost:8080/cv-add-tag/1?field=language&tag=english
-
 
 ### Add a skills tab
 PUT http://localhost:8080/cv-add-tag/1?field=skill&tag=Java
 
 ### Add another skills tab
-PUT http://localhost:8080/cv-add-tag/1?field=skill&tag=DevOps
+PUT http://localhost:8080/cv-add-tag/1?field=skill&tag=C
 
 ### Add a tool tab
-PUT http://localhost:8080/cv-add-tag/1?field=tool&tag=Agile
+PUT http://localhost:8080/cv-add-tag/1?field=tool&tag=SWE
 
-### Delete a cv
-DELETE http://localhost:8080/cv/1
+#===================================================
+
+
+### Apply to job
+POST http://localhost:8080/job-app/1?cvId=1
+
+### Get all job applications for a job
+GET http://localhost:8080/job-app/1
+
+### Get all job applications for a user
+GET http://localhost:8080/user-app/bagsylina
+
+### Get job application
+GET http://localhost:8080/app/1
+
+### Delete job application
+DELETE http://localhost:8080/app/1
+
+
+
+### Get all applications to a job
+GET http://localhost:8080/app/job/1
+
+### Get all applications of a user
+GET http://localhost:8080/app/user/1
+
+
+
+### CHECK MATCH
+GET http://localhost:8080/app/match/1?cvId=1
+
+###
+GET http://localhost:8080/app/recommend/1

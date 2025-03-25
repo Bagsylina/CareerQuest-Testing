@@ -26,7 +26,9 @@ public class CVService {
         Optional<CVEntity> optionalCV = cvRepository.findById(id);
         CVEntity cv = optionalCV.orElseThrow(() -> new CVNotFoundException(id));
 
-        return new CV(cv);
+
+        return new CV(cv.getId(), cv.getUserId(), cv.getDescription(), cv.getAchievements(), cv.getEducation(), cv.getExperience(),
+                    cv.getExtracurricular(), cv.getProjects(), cv.getSkills(), cv.getTools(), cv.getLanguages());
     }
 
     public CV updateCV(String id, CVCreation cvData) throws CVNotFoundException {

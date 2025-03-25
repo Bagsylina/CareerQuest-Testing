@@ -4,12 +4,10 @@ package ro.unibuc.careerquest.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ro.unibuc.careerquest.data.JobContent;
 import ro.unibuc.careerquest.data.JobEntity;
-import ro.unibuc.careerquest.data.EmployerRepository;
-import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.dto.Job;
+import ro.unibuc.careerquest.dto.JobContent;
 import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.dto.Application;
 import ro.unibuc.careerquest.data.ApplicationRepository;
@@ -24,6 +22,8 @@ import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
 import ro.unibuc.careerquest.exception.AlreadyAppliedException;
+import ro.unibuc.careerquest.data.EmployerRepository;
+import ro.unibuc.careerquest.data.EmployerEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,8 +50,6 @@ public class JobsService {
     private static final String helloTemplate = "Hello, %s!";
     private static final String informationTemplate = "%s : %s!";
     private static final int FREE_POST_LIMIT = 5;
-
-
 
     public List<Job> getAllJobs() {
         List<JobEntity> entities = jobDatabase.findAll();
@@ -85,8 +83,8 @@ public class JobsService {
         jobDatabase.save(entity);
         return new Job(entity); // implemented constructor for ease
     }
-  
-    /*
+
+   /*
      public Job createJob(JobContent job, String employerId) {
         EmployerEntity employer = employerRepository.findById(employerId)
                 .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
@@ -112,7 +110,6 @@ public class JobsService {
    
     }
 */
-
     
     public Job updateJob(String id, JobContent job) throws EntityNotFoundException {
         JobEntity entity = jobDatabase.findById(id)

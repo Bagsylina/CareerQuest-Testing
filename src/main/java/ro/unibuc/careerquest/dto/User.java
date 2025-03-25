@@ -8,6 +8,8 @@ import ro.unibuc.careerquest.data.UserEntity;
 
 import java.time.LocalDate;
 
+import ro.unibuc.careerquest.data.UserEntity;
+
 public class User {
 
     private String username;

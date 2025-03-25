@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CVRepository extends MongoRepository<CVEntity, String> {
     
-    List<CVEntity> findByUserId(String username);
+    List<CVEntity> findByUserId(String username); // aici findByUserName
 }

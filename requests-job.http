@@ -56,5 +56,5 @@ Content-Type: application/json
     "characteristics": ["paid leave", "benefits"]
 }
 
-####
 DELETE http://localhost:8080/job/1
+
