@@ -38,8 +38,5 @@ Content-Type: application/json
 ### Delete an employer
 DELETE http://localhost:8080/employer/1
 
-### Build Employer Info
-GET http://localhost:8080/info?title=Manager
-
 ### Pay for premium
 PUT http://localhost:8080/employer/1/pay

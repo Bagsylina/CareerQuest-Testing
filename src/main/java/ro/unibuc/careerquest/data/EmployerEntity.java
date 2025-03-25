@@ -10,7 +10,7 @@ public class EmployerEntity {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private String phone;
@@ -20,7 +20,7 @@ public class EmployerEntity {
 
     public EmployerEntity() {}
 
-    public EmployerEntity(Long id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
+    public EmployerEntity(String id, String name, String email, String phone, String company, LocalDate lastPaymentDate, boolean premium) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -46,11 +46,11 @@ public class EmployerEntity {
         this.premium = premium;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
