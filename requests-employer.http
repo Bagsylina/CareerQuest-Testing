@@ -1,0 +1,42 @@
+### Get all employers
+GET http://localhost:8080/employer
+
+### Get employer by ID
+GET http://localhost:8080/employer/1
+
+### Create a new employer
+@postEmployerName = John Doe
+@postEmployerEmail = john.doe@example.com
+@postEmployerPhone = +40722123456
+@postEmployerCompany = TechCorp
+POST http://localhost:8080/employer
+Content-Type: application/json
+
+{
+    "name": "{{postEmployerName}}",
+    "email": "{{postEmployerEmail}}",
+    "phone": "{{postEmployerPhone}}",
+    "company": "{{postEmployerCompany}}"
+}
+
+### Get all the jobs posted by an employer (ex: employer with id=1 )
+GET http://localhost:8080/jobs/employer/1
+
+### Update employer details
+@putEmployerEmail = johndoe@newdomain.com
+@putEmployerPhone = +40722123499
+@putEmployerCompany = Fintech Solutions
+PUT http://localhost:8080/employer/1
+Content-Type: application/json
+
+{
+    "email": "{{putEmployerEmail}}",
+    "phone": "{{putEmployerPhone}}",
+    "company": "{{putEmployerCompany}}"
+}
+
+### Delete an employer
+DELETE http://localhost:8080/employer/1
+
+### Pay for premium
+PUT http://localhost:8080/employer/1/pay

@@ -6,14 +6,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import ro.unibuc.careerquest.data.CVRepository;
+import ro.unibuc.careerquest.data.EmployerRepository;
+import ro.unibuc.careerquest.data.UserEntity;
 import ro.unibuc.careerquest.data.UserRepository;
+import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.data.JobRepository;
+import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.data.ApplicationRepository;
 
 import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackageClasses = {UserRepository.class, CVRepository.class, JobRepository.class, ApplicationRepository.class})
+@EnableMongoRepositories(basePackageClasses = {UserRepository.class, CVRepository.class, JobRepository.class, EmployerRepository.class, ApplicationRepository.class})
 public class CareerQuestApplication {
 
 	@Autowired
@@ -24,6 +28,9 @@ public class CareerQuestApplication {
   
   	@Autowired
 	private JobRepository jobDatabase;
+
+	@Autowired
+	private EmployerRepository employerRepository;
 
 	@Autowired
 	private ApplicationRepository applicationRepository;
@@ -37,7 +44,7 @@ public class CareerQuestApplication {
 		userRepository.deleteAll();
 		cvRepository.deleteAll();
 		jobDatabase.deleteAll();
+		employerRepository.deleteAll();
 		applicationRepository.deleteAll();
 	}
-
 }
