@@ -1,15 +1,13 @@
 package ro.unibuc.careerquest.controller;
 
-import java.text.FieldPosition;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ro.unibuc.careerquest.dto.CVCompCreation;
 import ro.unibuc.careerquest.data.CVComponent;
+import ro.unibuc.careerquest.dto.CVCompCreation;
+
 import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.CVCreation;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
@@ -24,6 +22,12 @@ public class CVController {
 
     @Autowired
     private CVService cvService;
+
+    @GetMapping("/cv/{id}")
+    @ResponseBody
+    public CV getCV(@PathVariable String id) throws CVNotFoundException {
+        return cvService.getCV(id);
+    }
 
     @PutMapping("/cv/{id}")
     @ResponseBody

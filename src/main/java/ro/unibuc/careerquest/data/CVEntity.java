@@ -3,8 +3,6 @@ package ro.unibuc.careerquest.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.unibuc.careerquest.data.CVComponent;
-
 import org.springframework.data.annotation.Id;
 
 public class CVEntity {

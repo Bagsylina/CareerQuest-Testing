@@ -1,3 +1,4 @@
+
 package ro.unibuc.careerquest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.UsernameTakenException;
 import ro.unibuc.careerquest.exception.AlreadyAppliedException;
+import ro.unibuc.careerquest.data.EmployerRepository;
+import ro.unibuc.careerquest.data.EmployerEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +49,26 @@ public class JobsService {
     private final AtomicLong appCounter = new AtomicLong();
     private static final String helloTemplate = "Hello, %s!";
     private static final String informationTemplate = "%s : %s!";
-
+    private static final int FREE_POST_LIMIT = 5;
 
     public List<Job> getAllJobs() {
         List<JobEntity> entities = jobDatabase.findAll();
         return entities.stream()
                 .map(entity -> new Job(entity))
                 .collect(Collectors.toList());
+    }
+  
+    //get the jobs after priority
+    public List<JobEntity> getAllJobsByPriority() {
+
+
+        return jobDatabase.findAll().stream()
+        .sorted((j1, j2) -> {
+            boolean isPremium1 = (employerRepository.findByName( j1.getEmployer()) != null && employerRepository.findByName( j1.getEmployer()).isPremium());
+            boolean isPremium2 = (employerRepository.findByName( j2.getEmployer()) != null && employerRepository.findByName( j2.getEmployer()).isPremium());
+            return Boolean.compare(isPremium2, isPremium1); // Premium first
+        })        
+        .collect(Collectors.toList());
     }
 
     public Job getJob(String id) throws EntityNotFoundException {
@@ -68,6 +84,32 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
+   /*
+     public Job createJob(JobContent job, String employerId) {
+        EmployerEntity employer = employerRepository.findById(employerId)
+                .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
+
+        // Verify if the payment for this month is done
+        if (employer.getLastPaymentDate() == null || employer.getLastPaymentDate().isBefore(LocalDate.now().minusMonths(1))) {
+            employer.setPremium(false); // If the payment is not done, then we don't have a premium account
+            employerRepository.save(employer);
+        }
+
+        // If we are not premium, check how many free post we have
+        if (!employer.isPremium()) {
+            long jobCount = jobDatabase.countByEmployer(employerId);
+            if (jobCount >= FREE_POST_LIMIT) {
+                throw new RuntimeException("Limit exceeded. Upgrade to premium to post more jobs.");
+            }
+        }
+
+        JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
+
+        jobDatabase.save(entity);
+        return new Job(entity);
+   
+    }
+*/
     
     public Job updateJob(String id, JobContent job) throws EntityNotFoundException {
         JobEntity entity = jobDatabase.findById(id)

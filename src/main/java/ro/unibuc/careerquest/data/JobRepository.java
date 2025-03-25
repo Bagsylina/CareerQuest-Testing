@@ -1,9 +1,12 @@
+
 package ro.unibuc.careerquest.data;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+
+import ro.unibuc.careerquest.dto.Job;
 
 /**
  * No need to implement this interface.
@@ -21,5 +24,9 @@ public interface JobRepository extends MongoRepository<JobEntity, String> {
     List<JobEntity> findByEmployer(String employer);
 
     List<JobEntity> findByLocation(String location);
+
+    //List<Job> findByPriority(String employer);
+
+    long countByEmployer(String employer);
 
 }

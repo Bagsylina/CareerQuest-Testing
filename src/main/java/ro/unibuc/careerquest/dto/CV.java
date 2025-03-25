@@ -43,13 +43,34 @@ public class CV {
         this.userId = userId;
         this.description = description;
         this.achievements = achievements;
-        this.education = new ArrayList<>(education);
-        this.experience = new ArrayList<>(experience);
-        this.extracurricular = new ArrayList<>(extracurricular);
-        this.projects = new ArrayList<>(projects);
-        this.skills = new ArrayList<>(skills);
-        this.tools = new ArrayList<>(tools);
-        this.languages = new ArrayList<>(languages);
+        if(education != null)
+            this.education = new ArrayList<>(education);
+        if(experience != null)
+            this.experience = new ArrayList<>(experience);
+        if(extracurricular != null)
+            this.extracurricular = new ArrayList<>(extracurricular);
+        if(projects != null)
+            this.projects = new ArrayList<>(projects);
+        if(skills != null)
+            this.skills = new ArrayList<>(skills);
+        if(tools != null)
+            this.tools = new ArrayList<>(tools);
+        if(languages != null)
+            this.languages = new ArrayList<>(languages);
+    }
+
+    public CV(CVEntity cv) {
+        this.id = cv.getId();
+        this.userId = cv.getUserId();
+        this.description = cv.getDescription();
+        this.achievements = cv.getAchievements();
+        this.education = new ArrayList<>(cv.getEducation());
+        this.experience = new ArrayList<>(cv.getExperience());
+        this.extracurricular = new ArrayList<>(cv.getExtracurricular());
+        this.projects = new ArrayList<>(cv.getProjects());
+        this.skills = new ArrayList<>(cv.getSkills());
+        this.tools = new ArrayList<>(cv.getTools());
+        this.languages = new ArrayList<>(cv.getLanguages()); 
     }
 
     public CV(CVEntity cv) {

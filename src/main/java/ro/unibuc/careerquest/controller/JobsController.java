@@ -1,3 +1,4 @@
+
 package ro.unibuc.careerquest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +35,30 @@ public class JobsController {
     public List<Job> getAllJobs() {
         return jobsService.getAllJobs();
     }
+  
+     @GetMapping("/job/priority")
+      @ResponseBody
+      public List<JobEntity> getAllJobsByPriority() {
+          return jobsService.getAllJobsByPriority();
+      }
 
     @GetMapping("/job/{id}")
     @ResponseBody
     public Job getJob(@PathVariable String id) throws EntityNotFoundException {
         return jobsService.getJob(id);
     }
-
+  
+  // list of all the jobs posted by an employer
+    @GetMapping("/jobs/employer/{employerId}")
+    @ResponseBody
+    public List<JobEntity> getJobsByEmployer(@PathVariable String employerId) {
+        return jobsService.getJobsByEmployer(employerId);
+    }
     
     @PostMapping("/job")
     @ResponseBody
-    public Job createJob(@RequestBody JobContent job) {
-        return jobsService.createJob(job);
+    public Job createJob(@RequestBody JobContent job,String employerId) {
+        return jobsService.createJob(job,employerId);
     }
 
     @PutMapping("/job/{id}")
