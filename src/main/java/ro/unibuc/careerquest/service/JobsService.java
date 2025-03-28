@@ -76,6 +76,11 @@ public class JobsService {
         JobEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
         return new Job(entity); // implemented constructor for ease
     }
+    
+    //return all the jobs created by an employer
+    public List<JobEntity> getJobsByEmployer(String employerId) {
+        return jobDatabase.findByEmployer(employerId);
+    }
 
     public Job createJob(JobContent job) {
         JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
