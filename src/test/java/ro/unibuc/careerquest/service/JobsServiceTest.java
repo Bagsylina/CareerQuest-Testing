@@ -22,6 +22,7 @@ import ro.unibuc.careerquest.data.CVComponent;
 import ro.unibuc.careerquest.data.CVEntity;
 import ro.unibuc.careerquest.data.CVRepository;
 import ro.unibuc.careerquest.data.JobEntity;
+import ro.unibuc.careerquest.data.EmployerEntity;
 import ro.unibuc.careerquest.data.JobRepository;
 import ro.unibuc.careerquest.data.UserEntity;
 import ro.unibuc.careerquest.data.UserRepository;

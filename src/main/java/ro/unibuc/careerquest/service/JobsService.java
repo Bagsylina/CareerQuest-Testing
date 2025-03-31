@@ -45,6 +45,9 @@ public class JobsService {
     @Autowired
     private CVRepository cvRepository;
 
+    @Autowired
+    private EmployerRepository employerRepository;
+
     private final AtomicLong counter = new AtomicLong();
     private final AtomicLong appCounter = new AtomicLong();
     private static final String helloTemplate = "Hello, %s!";
@@ -77,6 +80,13 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
+    public List<Job> getJobsByEmployer(String employerId) {
+        List<JobEntity> entities = jobDatabase.findByEmployer(employerId);
+        return entities.stream()
+                .map(entity -> new Job(entity))
+                .collect(Collectors.toList());
+    }
+
     public Job createJob(JobContent job) {
         JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
 
@@ -84,32 +94,32 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
-   /*
-     public Job createJob(JobContent job, String employerId) {
-        EmployerEntity employer = employerRepository.findById(employerId)
-                .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
+     
+    // public Job createJob(JobContent job, String employerId) {
+    //     // EmployerEntity employer = employerRepository.findById(employerId)
+    //     //         .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
 
-        // Verify if the payment for this month is done
-        if (employer.getLastPaymentDate() == null || employer.getLastPaymentDate().isBefore(LocalDate.now().minusMonths(1))) {
-            employer.setPremium(false); // If the payment is not done, then we don't have a premium account
-            employerRepository.save(employer);
-        }
+    //     // // Verify if the payment for this month is done
+    //     // if (employer.getLastPaymentDate() == null || employer.getLastPaymentDate().isBefore(LocalDate.now().minusMonths(1))) {
+    //     //     employer.setPremium(false); // If the payment is not done, then we don't have a premium account
+    //     //     employerRepository.save(employer);
+    //     // }
 
-        // If we are not premium, check how many free post we have
-        if (!employer.isPremium()) {
-            long jobCount = jobDatabase.countByEmployer(employerId);
-            if (jobCount >= FREE_POST_LIMIT) {
-                throw new RuntimeException("Limit exceeded. Upgrade to premium to post more jobs.");
-            }
-        }
+    //     // // If we are not premium, check how many free post we have
+    //     // if (!employer.isPremium()) {
+    //     //     long jobCount = jobDatabase.countByEmployer(employerId);
+    //     //     if (jobCount >= FREE_POST_LIMIT) {
+    //     //         throw new RuntimeException("Limit exceeded. Upgrade to premium to post more jobs.");
+    //     //     }
+    //     // }
 
-        JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
+    //     JobEntity entity = new JobEntity(Long.toString(counter.incrementAndGet()), job); // implemented constructor for ease
+    //     //entity.setEmployer(employer.getName());
 
-        jobDatabase.save(entity);
-        return new Job(entity);
+    //     jobDatabase.save(entity);
+    //     return new Job(entity);
    
-    }
-*/
+    // }
     
     public Job updateJob(String id, JobContent job) throws EntityNotFoundException {
         JobEntity entity = jobDatabase.findById(id)

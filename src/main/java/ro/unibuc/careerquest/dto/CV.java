@@ -73,19 +73,19 @@ public class CV {
         this.languages = new ArrayList<>(cv.getLanguages()); 
     }
 
-    public CV(CVEntity cv) {
-        this.id = cv.getId();
-        this.userId = cv.getUserId();
-        this.description = cv.getDescription();
-        this.achievements = cv.getAchievements();
-        this.education = cv.getEducation();
-        this.experience = cv.getExperience();
-        this.extracurricular = cv.getExtracurricular();
-        this.projects = cv.getProjects();
-        this.skills = cv.getSkills();
-        this.tools = cv.getTools();
-        this.languages = cv.getLanguages();
-    }
+    // public CV(CVEntity cv) {
+    //     this.id = cv.getId();
+    //     this.userId = cv.getUserId();
+    //     this.description = cv.getDescription();
+    //     this.achievements = cv.getAchievements();
+    //     this.education = cv.getEducation();
+    //     this.experience = cv.getExperience();
+    //     this.extracurricular = cv.getExtracurricular();
+    //     this.projects = cv.getProjects();
+    //     this.skills = cv.getSkills();
+    //     this.tools = cv.getTools();
+    //     this.languages = cv.getLanguages();
+    // }
 
     public String getId() {return id;}
     public String getUserId() {return userId;}

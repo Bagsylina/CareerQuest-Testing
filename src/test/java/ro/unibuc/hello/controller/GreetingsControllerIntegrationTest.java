@@ -35,10 +35,11 @@ public class GreetingsControllerIntegrationTest {
     @Container
     public static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.20")
             .withExposedPorts(27017)
-            .withEnv("MONGO_INITDB_ROOT_USERNAME","root") // user
-            .withEnv("MONGO_INITDB_ROOT_PASSWORD", "example") // password
-            .withEnv("MONGO_INITDB_DATABASE", "testdb") // dbname
-            .withCommand("--auth");
+            .withSharding();
+            // .withEnv("MONGO_INITDB_ROOT_USERNAME","root") // user
+            // .withEnv("MONGO_INITDB_ROOT_PASSWORD", "example") // password
+            // .withEnv("MONGO_INITDB_DATABASE", "testdb") // dbname
+            // .withCommand("--auth");
 
     @BeforeAll
     public static void setUp() {
@@ -52,7 +53,8 @@ public class GreetingsControllerIntegrationTest {
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
-        final String MONGO_URL = "mongodb://root:example@localhost:";
+        //final String MONGO_URL = "mongodb://root:example@localhost:";
+        final String MONGO_URL = "mongodb://localhost:";
         final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27017));
 
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
