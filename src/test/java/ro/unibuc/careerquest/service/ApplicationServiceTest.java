@@ -21,6 +21,7 @@ import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 
+import java.util.Arrays;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -69,7 +70,7 @@ class ApplicationServiceTest {
         //job
         String jobId = "1";
         String nonExistingJobId = "2";
-        JobEntity jobEntity = new JobEntity(jobId, "Fullstack Engineer", "Description", "Adobe", null, null, null, 12000, "Bucharest");
+        JobEntity jobEntity = new JobEntity(jobId, "Fullstack Engineer", "Description", "Adobe", Arrays.asList(), Arrays.asList(), Arrays.asList(), 12000, "Bucharest");
 
         when(jobRepository.findById(jobId)).thenReturn(Optional.of(jobEntity));
         when(jobRepository.findById(nonExistingJobId)).thenReturn(Optional.empty());

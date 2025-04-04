@@ -63,11 +63,11 @@ public class JobsService {
 
 
         return jobDatabase.findAll().stream()
-        .sorted((j1, j2) -> {
+        .sorted(/*(j1, j2) -> {
             boolean isPremium1 = (employerRepository.findByName( j1.getEmployer()) != null && employerRepository.findByName( j1.getEmployer()).isPremium());
             boolean isPremium2 = (employerRepository.findByName( j2.getEmployer()) != null && employerRepository.findByName( j2.getEmployer()).isPremium());
             return Boolean.compare(isPremium2, isPremium1); // Premium first
-        })        
+        }*/)        
         .collect(Collectors.toList());
     }
 
