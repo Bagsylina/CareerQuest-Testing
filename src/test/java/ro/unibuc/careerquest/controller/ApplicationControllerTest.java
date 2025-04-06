@@ -10,6 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -57,7 +60,7 @@ class ApplicationControllerTest {
 
         User user = new User(username, "user1@email.com");
         CV cv = new CV(cvId, username, "test", "test");
-        Job job = new Job(jobId, "Title", "Description", "Employer", null, null, null, 4000, "Bucharest");
+        Job job = new Job(jobId, "Title", "Description", "Employer", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 4000, "Bucharest");
         Application app = new Application(appId, job, user, cv);
         when(applicationService.getApplication(appId)).thenReturn(app);
 
@@ -87,7 +90,7 @@ class ApplicationControllerTest {
 
         User user = new User(username, "user1@email.com");
         CV cv = new CV(cvId, username, "test", "test");
-        Job job = new Job(jobId, "Title", "Description", "Employer", null, null, null, 4000, "Bucharest");
+        Job job = new Job(jobId, "Title", "Description", "Employer", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 4000, "Bucharest");
         Application app = new Application(appId, job, user, cv);
         when(jobsService.jobApply(jobId, cvId)).thenReturn(app);
 

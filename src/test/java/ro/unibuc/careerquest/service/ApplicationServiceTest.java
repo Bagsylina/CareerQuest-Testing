@@ -8,6 +8,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import ro.unibuc.careerquest.data.ApplicationEntity;
 import ro.unibuc.careerquest.data.ApplicationRepository;
 import ro.unibuc.careerquest.data.CVEntity;
@@ -69,7 +72,7 @@ class ApplicationServiceTest {
         //job
         String jobId = "1";
         String nonExistingJobId = "2";
-        JobEntity jobEntity = new JobEntity(jobId, "Fullstack Engineer", "Description", "Adobe", null, null, null, 12000, "Bucharest");
+        JobEntity jobEntity = new JobEntity(jobId, "Fullstack Engineer", "Description", "Adobe", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 12000, "Bucharest");
 
         when(jobRepository.findById(jobId)).thenReturn(Optional.of(jobEntity));
         when(jobRepository.findById(nonExistingJobId)).thenReturn(Optional.empty());
