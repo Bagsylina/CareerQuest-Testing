@@ -14,6 +14,8 @@ import ro.unibuc.careerquest.data.ApplicationRepository;
 import ro.unibuc.careerquest.data.UserRepository;
 import ro.unibuc.careerquest.data.CVEntity;
 import ro.unibuc.careerquest.data.CVRepository;
+import ro.unibuc.careerquest.data.EmployerEntity;
+import ro.unibuc.careerquest.data.EmployerRepository;
 import ro.unibuc.careerquest.data.UserEntity;
 import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.User;
@@ -44,6 +46,9 @@ public class JobsService {
     
     @Autowired
     private CVRepository cvRepository;
+
+    @Autowired
+    private EmployerRepository employerRepository;
 
     private final AtomicLong counter = new AtomicLong();
     private final AtomicLong appCounter = new AtomicLong();
