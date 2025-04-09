@@ -24,7 +24,7 @@ pipeline {
                 }
                 sh "docker build -t $env.CREDS_USR/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION} ."
                 sh "docker login docker.io -u $env.CREDS_USR -p $env.CREDS_PSW"
-                sh "docker push $env.CREDS_USR/hello-img:$IMAGE_VERSION"
+                sh "docker push $env.CREDS_USR/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION}"
 
         }
 }
