@@ -28,7 +28,7 @@ pipeline {
                 sh "docker login docker.io -u $env.CREDS_USR -p $env.CREDS_PSW"
                 sh "docker push $env.CREDS_USR/hello-img:${env.IMAGE_TAG}"
                 sh "git tag ${env.IMAGE_TAG}"
-                sh "git push https://${env.GITHUB_TOKEN_PSW}@github.com/${env.CREDS_USR}/service.git ${env.IMAGE_TAG}"
+                sh "git push https://${env.GITHUB_TOKEN_PSW}@github.com/ProiectPE/CareerQuest/service.git ${env.IMAGE_TAG}"
 
             }
         }
