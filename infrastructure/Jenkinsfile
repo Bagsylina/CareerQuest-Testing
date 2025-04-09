@@ -30,6 +30,7 @@ pipeline {
                 sh "git tag ${env.IMAGE_TAG}"
                 sh "git push https://${env.GITHUB_TOKEN_PSW}@github.com/${env.CREDS_USR}/service.git ${env.IMAGE_TAG}"
 
+            }
         }
 
         stage('Add image tag to docker') {
@@ -37,6 +38,5 @@ pipeline {
                 sh "IMAGE_TAG=${env.IMAGE_TAG} docker compose up -d hello mongo"
             }
         }
-}
     }
 }
