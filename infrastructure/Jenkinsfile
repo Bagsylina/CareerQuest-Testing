@@ -35,7 +35,6 @@ pipeline {
                 sh "docker push $env.CREDS_USR/hello-img:${env.IMAGE_TAG}"
                 sh "git tag ${env.IMAGE_TAG}"
                 sh "git push https://${env.GITHUB_TOKEN_PSW}@github.com/ProiectPE/CareerQuest.git ${env.IMAGE_TAG}"
-
             }
         }
 

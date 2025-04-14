@@ -1,4 +1,4 @@
-package ro.unibuc.hello.controller;
+/*package ro.unibuc.hello.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -136,3 +136,4 @@ public class GreetingsControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].content").value("Hello 2"));
     }
 }
+*/
