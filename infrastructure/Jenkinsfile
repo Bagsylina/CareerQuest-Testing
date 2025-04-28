@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+        stage('Smoke Test') {
+            steps {
+                sh './gradlew test --tests "*SmokeTest"'
+            }
+        }
+
         stage('Integration Tests') {
             steps {
                 sh './gradlew testIT'
