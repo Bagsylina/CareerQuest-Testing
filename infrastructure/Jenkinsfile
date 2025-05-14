@@ -17,7 +17,7 @@ pipeline {
 
         stage('Smoke Test') {
             steps {
-                sh './gradlew test --tests "*SmokeTest"'
+                sh './gradlew testSmoke'
             }
         }
 

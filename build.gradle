@@ -75,6 +75,15 @@ jacocoTestReport {
 	dependsOn test
 }
 
+task testSmoke(type: Test) {
+	outputs.dir snippetsDir
+	outputs.upToDateWhen { false }
+
+	useJUnitPlatform {
+		includeTags "SmokeTest"
+	}
+}
+
 task testIT(type: Test) {
 	outputs.dir snippetsDir
 	outputs.upToDateWhen { false }
