@@ -66,7 +66,7 @@ dependencyManagement {
 test {
 	outputs.dir snippetsDir
 	useJUnitPlatform {
-		excludeTags ("IntegrationTest", "E2E")
+		excludeTags ("IntegrationTest", "E2E", "SmokeTest")
 	}
 	finalizedBy jacocoTestReport
 }
