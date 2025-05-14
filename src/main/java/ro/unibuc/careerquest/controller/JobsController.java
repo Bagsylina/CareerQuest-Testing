@@ -36,7 +36,7 @@ public class JobsController {
     public List<Job> getAllJobs() {
         return jobsService.getAllJobs();
     }
-  
+
      @GetMapping("/job/priority")
       @ResponseBody
       public List<JobEntity> getAllJobsByPriority() {
@@ -48,14 +48,14 @@ public class JobsController {
     public Job getJob(@PathVariable String id) throws EntityNotFoundException {
         return jobsService.getJob(id);
     }
-  
+
   // list of all the jobs posted by an employer
     @GetMapping("/jobs/employer/{employerId}")
     @ResponseBody
     public List<Job> getJobsByEmployer(@PathVariable String employerId) {
         return jobsService.getJobsByEmployer(employerId);
     }
-    
+
     @PostMapping("/job")
     @ResponseBody
     public Job createJob(@RequestBody JobContent job) {
@@ -64,7 +64,7 @@ public class JobsController {
 
     @PutMapping("/job/{id}")
     @ResponseBody
-    public Job updateJob(@PathVariable String id, @RequestBody JobContent job) throws EntityNotFoundException {
+    public Job updateJob(@PathVariable("id") String id, @RequestBody JobContent job) throws EntityNotFoundException {
         return jobsService.updateJob(id, job);
     }
 
@@ -72,7 +72,7 @@ public class JobsController {
 
     @DeleteMapping("/job/{id}")
     @ResponseBody
-    public void deleteJob(@PathVariable String id) throws EntityNotFoundException {
+    public void deleteJob(@PathVariable("id") String id) throws EntityNotFoundException {
         jobsService.deleteJob(id);
     }
 
