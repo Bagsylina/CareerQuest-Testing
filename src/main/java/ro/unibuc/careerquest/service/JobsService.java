@@ -14,6 +14,8 @@ import ro.unibuc.careerquest.data.ApplicationRepository;
 import ro.unibuc.careerquest.data.UserRepository;
 import ro.unibuc.careerquest.data.CVEntity;
 import ro.unibuc.careerquest.data.CVRepository;
+import ro.unibuc.careerquest.data.EmployerEntity;
+import ro.unibuc.careerquest.data.EmployerRepository;
 import ro.unibuc.careerquest.data.UserEntity;
 import ro.unibuc.careerquest.dto.CV;
 import ro.unibuc.careerquest.dto.User;
@@ -78,6 +80,11 @@ public class JobsService {
         Optional<JobEntity> optionalEntity = jobDatabase.findById(id);
         JobEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
         return new Job(entity); // implemented constructor for ease
+    }
+    
+    //return all the jobs created by an employer
+    public List<JobEntity> getJobsByEmployer(String employerId) {
+        return jobDatabase.findByEmployer(employerId);
     }
 
     public List<Job> getJobsByEmployer(String employerId) {

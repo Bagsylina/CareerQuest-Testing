@@ -10,6 +10,8 @@ import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.dto.JobContent;
 import ro.unibuc.careerquest.dto.Application;
 import ro.unibuc.careerquest.data.ApplicationEntity;
+
+import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.service.JobsService;
