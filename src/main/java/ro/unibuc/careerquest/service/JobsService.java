@@ -43,7 +43,7 @@ public class JobsService {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private CVRepository cvRepository;
 
@@ -62,7 +62,7 @@ public class JobsService {
                 .map(entity -> new Job(entity))
                 .collect(Collectors.toList());
     }
-  
+
     //get the jobs after priority
     public List<JobEntity> getAllJobsByPriority() {
 
@@ -72,7 +72,7 @@ public class JobsService {
             boolean isPremium1 = (employerRepository.findByName( j1.getEmployer()) != null && employerRepository.findByName( j1.getEmployer()).isPremium());
             boolean isPremium2 = (employerRepository.findByName( j2.getEmployer()) != null && employerRepository.findByName( j2.getEmployer()).isPremium());
             return Boolean.compare(isPremium2, isPremium1); // Premium first
-        })        
+        })
         .collect(Collectors.toList());
     }
 
@@ -81,11 +81,11 @@ public class JobsService {
         JobEntity entity = optionalEntity.orElseThrow(() -> new EntityNotFoundException(id));
         return new Job(entity); // implemented constructor for ease
     }
-    
-    //return all the jobs created by an employer
-    public List<JobEntity> getJobsByEmployer(String employerId) {
-        return jobDatabase.findByEmployer(employerId);
-    }
+
+    // //return all the jobs created by an employer
+    // public List<JobEntity> getJobsByEmployer(String employerId) {
+    //     return jobDatabase.findByEmployer(employerId);
+    // }
 
     public List<Job> getJobsByEmployer(String employerId) {
         List<JobEntity> entities = jobDatabase.findByEmployer(employerId);
@@ -101,7 +101,7 @@ public class JobsService {
         return new Job(entity); // implemented constructor for ease
     }
 
-     
+
     // public Job createJob(JobContent job, String employerId) {
     //     // EmployerEntity employer = employerRepository.findById(employerId)
     //     //         .orElseThrow(() -> new EntityNotFoundException("Employer not found"));
@@ -125,9 +125,9 @@ public class JobsService {
 
     //     jobDatabase.save(entity);
     //     return new Job(entity);
-   
+
     // }
-    
+
     public Job updateJob(String id, JobContent job) throws EntityNotFoundException {
         JobEntity entity = jobDatabase.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
