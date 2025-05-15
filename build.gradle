@@ -42,7 +42,7 @@ dependencies {
 	// step 2 of test setup lab 4
 	testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-	
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
 
 	// Integration tests - test containers dependencies
