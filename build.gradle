@@ -71,7 +71,7 @@ dependencyManagement {
 test {
 	outputs.dir snippetsDir
 	useJUnitPlatform {
-		excludeTags ("IntegrationTest", "E2E", "SmokeTest")
+		excludeTags ("IntegrationTest", "SmokeTest")
 	}
 	finalizedBy jacocoTestReport
 }
@@ -114,7 +114,7 @@ task testE2E() {
 					'--plugin', 'pretty',
 					'--plugin', 'html:target/cucumber-report.html',
 					'--glue', 'ro.unibuc.careerquest.e2e.steps',
-					'src/test/resources'])
+					'src/test/resources',])
 		}
 	}
 }

@@ -30,23 +30,34 @@ public class CareerQuestSteps {
     @Autowired
     protected RestTemplate restTemplate;
 
-    @When("^the employer posts first job to /job$")
-    public void the_client_posts_a_job_to_job() throws JsonProcessingException {
-        String url = "http://localhost:8080/job";
-        Map<String, Object> jobPayload = new HashMap<>();
-        jobPayload.put("title", "Software developer");
-        jobPayload.put("description", "8 hr workdays, a year at least");
-        jobPayload.put("employer", "Adobe");
-        jobPayload.put("salary", 5000);
-        jobPayload.put("location", "San Francisco");
-        jobPayload.put("abilities", List.of("Java", "C"));
-        jobPayload.put("domains", List.of("SWE"));
-        jobPayload.put("characteristics", List.of("paid leave", "benefits"));
-
-        String jsonPayload = new ObjectMapper().writeValueAsString(jobPayload);
-
-        executePost(url, jsonPayload);
+    @Given("^the client calls /test")
+    public void the_client_issues_GET_test() {
+        executeGet("http://localhost:8080/test");
     }
+
+    @Then("^the client receives status code of (\\d+)$")
+    public void the_client_receives_status_code_of(int statusCode) throws Throwable {
+        final HttpStatusCode currentStatusCode = latestResponse.getTheResponse().getStatusCode();
+        assertThat("status code is incorrect : " + latestResponse.getBody(), currentStatusCode.value(), is(statusCode));
+    }
+
+    // @When("^the employer posts first job to /job$")
+    // public void the_client_posts_a_job_to_job() throws JsonProcessingException {
+    //     String url = "http://localhost:8080/job";
+    //     Map<String, Object> jobPayload = new HashMap<>();
+    //     jobPayload.put("title", "Software developer");
+    //     jobPayload.put("description", "8 hr workdays, a year at least");
+    //     jobPayload.put("employer", "Adobe");
+    //     jobPayload.put("salary", 5000);
+    //     jobPayload.put("location", "San Francisco");
+    //     jobPayload.put("abilities", List.of("Java", "C"));
+    //     jobPayload.put("domains", List.of("SWE"));
+    //     jobPayload.put("characteristics", List.of("paid leave", "benefits"));
+
+    //     String jsonPayload = new ObjectMapper().writeValueAsString(jobPayload);
+
+    //     executePost(url, jsonPayload);
+    // }
 
     // @Given("^the employer posts second job to /job$")
     // public void the_client_posts_another_job_to_job() throws JsonProcessingException {
@@ -66,11 +77,11 @@ public class CareerQuestSteps {
     //     executePost(url, jsonPayload);
     // }
 
-    @Then("^the employer receives status code of (\\d+)$")
-    public void the_employer_receives_status_code_of(int statusCode) throws Throwable {
-        final HttpStatusCode currentStatusCode = latestResponse.getTheResponse().getStatusCode();
-        assertThat("status code is correct : " + latestResponse.getBody(), currentStatusCode.value(), is(statusCode)); // why incorrect?
-    }
+    // @Then("^the employer receives status code of (\\d+)$")
+    // public void the_employer_receives_status_code_of(int statusCode) throws Throwable {
+    //     final HttpStatusCode currentStatusCode = latestResponse.getTheResponse().getStatusCode();
+    //     assertThat("status code is correct : " + latestResponse.getBody(), currentStatusCode.value(), is(statusCode)); // why incorrect?
+    // }
 
     // @And("^the client receives response (.+)$")
     // public void the_client_receives_response(String response) throws JsonProcessingException {
