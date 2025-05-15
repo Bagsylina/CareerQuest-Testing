@@ -229,4 +229,350 @@ class CVServiceTest {
         //exception for nonexisting cv
         assertThrows(CVNotFoundException.class, () -> cvService.getCV(nonExistingId));
     }
+
+    //Tests generated using chatGPT
+
+    @Test
+    void addExperience_educationField_addsEducation() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "1";
+        CVEntity cvEntity = new CVEntity(cvId, "user1");
+        CVCompCreation compCreation = new CVCompCreation("education", LocalDate.of(2019, 1, 1), LocalDate.of(2020, 1, 1), "Degree", "Uni", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addExperience(cvId, compCreation);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getEducation().size());
+        assertEquals("Degree", cvEntity.getEducation().get(0).getTitle());
+    }
+
+    @Test
+    void addExperience_experienceField_addsExperience() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "2";
+        CVEntity cvEntity = new CVEntity(cvId, "user2");
+        CVCompCreation compCreation = new CVCompCreation("experience", LocalDate.of(2018, 5, 1), null, "Job", "Company", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addExperience(cvId, compCreation);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getExperience().size());
+        assertEquals("Job", cvEntity.getExperience().get(0).getTitle());
+        assertTrue(cvEntity.getExperience().get(0).getIsOngoing());
+    }
+
+    @Test
+    void addExperience_extracurricularField_addsExtracurricular() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "3";
+        CVEntity cvEntity = new CVEntity(cvId, "user3");
+        CVCompCreation compCreation = new CVCompCreation("extracurricular", LocalDate.of(2020, 3, 1), LocalDate.of(2021, 3, 1), "Club", "Organization", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addExperience(cvId, compCreation);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getExtracurricular().size());
+        assertEquals("Club", cvEntity.getExtracurricular().get(0).getTitle());
+    }
+
+    @Test
+    void addExperience_projectField_addsProject() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "4";
+        CVEntity cvEntity = new CVEntity(cvId, "user4");
+        CVCompCreation compCreation = new CVCompCreation("project", LocalDate.of(2021, 6, 1), null, "ProjectX", "CompanyX", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addExperience(cvId, compCreation);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getProjects().size());
+        assertEquals("ProjectX", cvEntity.getProjects().get(0).getTitle());
+        assertTrue(cvEntity.getProjects().get(0).getIsOngoing());
+    }
+
+    @Test
+    void addExperience_invalidField_throwsFieldNotFoundException() {
+        String cvId = "5";
+        CVEntity cvEntity = new CVEntity(cvId, "user5");
+        CVCompCreation compCreation = new CVCompCreation("invalidField", LocalDate.of(2020, 1, 1), "Title", "Institution", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(FieldNotFoundException.class, () -> {
+            cvService.addExperience(cvId, compCreation);
+        });
+    }
+
+    @Test
+    void addExperience_cvNotFound_throwsCVNotFoundException() {
+        String cvId = "nonexistent";
+        CVCompCreation compCreation = new CVCompCreation("experience", LocalDate.of(2020, 1, 1), "Title", "Institution", "Desc");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.empty());
+
+        assertThrows(CVNotFoundException.class, () -> {
+            cvService.addExperience(cvId, compCreation);
+        });
+    }
+
+    @Test
+    void addTag_skillField_addsSkill() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "10";
+        CVEntity cvEntity = new CVEntity(cvId, "user10");
+        String tag = "Java";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addTag(cvId, "skill", tag);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getSkills().size());
+        assertEquals(tag, cvEntity.getSkills().get(0));
+    }
+
+    @Test
+    void addTag_toolField_addsTool() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "11";
+        CVEntity cvEntity = new CVEntity(cvId, "user11");
+        String tag = "Git";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addTag(cvId, "tool", tag);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getTools().size());
+        assertEquals(tag, cvEntity.getTools().get(0));
+    }
+
+    @Test
+    void addTag_languageField_addsLanguage() throws CVNotFoundException, FieldNotFoundException {
+        String cvId = "12";
+        CVEntity cvEntity = new CVEntity(cvId, "user12");
+        String tag = "English";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.addTag(cvId, "language", tag);
+
+        assertEquals(cvId, result.getId());
+        assertEquals(1, cvEntity.getLanguages().size());
+        assertEquals(tag, cvEntity.getLanguages().get(0));
+    }
+
+    @Test
+    void addTag_invalidField_throwsFieldNotFoundException() {
+        String cvId = "13";
+        CVEntity cvEntity = new CVEntity(cvId, "user13");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(FieldNotFoundException.class, () -> {
+            cvService.addTag(cvId, "invalidField", "tag");
+        });
+    }
+
+    @Test
+    void addTag_cvNotFound_throwsCVNotFoundException() {
+        String cvId = "nonexistent";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.empty());
+
+        assertThrows(CVNotFoundException.class, () -> {
+            cvService.addTag(cvId, "skill", "Java");
+        });
+    }
+
+    @Test
+    void removeExperience_education_removesItem() throws Exception {
+        String cvId = "1";
+        CVEntity cvEntity = new CVEntity(cvId, "user1");
+        CVComponent comp = new CVComponent(LocalDate.now(), "Title", "Inst", "Desc");
+        cvEntity.addEducation(comp);
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeExperience(cvId, "education", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getEducation().isEmpty());
+    }
+
+    @Test
+    void removeExperience_experience_removesItem() throws Exception {
+        String cvId = "2";
+        CVEntity cvEntity = new CVEntity(cvId, "user2");
+        CVComponent comp = new CVComponent(LocalDate.now(), "Title", "Inst", "Desc");
+        cvEntity.addExperience(comp);
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeExperience(cvId, "experience", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getExperience().isEmpty());
+    }
+
+    @Test
+    void removeExperience_extracurricular_removesItem() throws Exception {
+        String cvId = "3";
+        CVEntity cvEntity = new CVEntity(cvId, "user3");
+        CVComponent comp = new CVComponent(LocalDate.now(), "Title", "Inst", "Desc");
+        cvEntity.addExtracurricular(comp);
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeExperience(cvId, "extracurricular", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getExtracurricular().isEmpty());
+    }
+
+    @Test
+    void removeExperience_project_removesItem() throws Exception {
+        String cvId = "4";
+        CVEntity cvEntity = new CVEntity(cvId, "user4");
+        CVComponent comp = new CVComponent(LocalDate.now(), "Title", "Inst", "Desc");
+        cvEntity.addProject(comp);
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeExperience(cvId, "project", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getProjects().isEmpty());
+    }
+
+    @Test
+    void removeExperience_invalidField_throwsFieldNotFoundException() {
+        String cvId = "5";
+        CVEntity cvEntity = new CVEntity(cvId, "user5");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(FieldNotFoundException.class, () -> {
+            cvService.removeExperience(cvId, "invalidField", 0);
+        });
+    }
+
+    @Test
+    void removeExperience_indexOutOfBounds_throwsIndexNotFoundException() {
+        String cvId = "6";
+        CVEntity cvEntity = new CVEntity(cvId, "user6");
+        // no education added, so index 0 invalid
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(IndexNotFoundException.class, () -> {
+            cvService.removeExperience(cvId, "education", 0);
+        });
+    }
+
+    @Test
+    void removeExperience_cvNotFound_throwsCVNotFoundException() {
+        String cvId = "missing";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.empty());
+
+        assertThrows(CVNotFoundException.class, () -> {
+            cvService.removeExperience(cvId, "education", 0);
+        });
+    }
+
+
+    @Test
+    void removeTag_skill_removesItem() throws Exception {
+        String cvId = "10";
+        CVEntity cvEntity = new CVEntity(cvId, "user10");
+        cvEntity.addSkill("Java");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeTag(cvId, "skill", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getSkills().isEmpty());
+    }
+
+    @Test
+    void removeTag_tool_removesItem() throws Exception {
+        String cvId = "11";
+        CVEntity cvEntity = new CVEntity(cvId, "user11");
+        cvEntity.addTool("Git");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeTag(cvId, "tool", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getTools().isEmpty());
+    }
+
+    @Test
+    void removeTag_language_removesItem() throws Exception {
+        String cvId = "12";
+        CVEntity cvEntity = new CVEntity(cvId, "user12");
+        cvEntity.addLanguage("English");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+        when(cvRepository.save(any(CVEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CV result = cvService.removeTag(cvId, "language", 0);
+
+        assertEquals(cvId, result.getId());
+        assertTrue(cvEntity.getLanguages().isEmpty());
+    }
+
+    @Test
+    void removeTag_invalidField_throwsFieldNotFoundException() {
+        String cvId = "13";
+        CVEntity cvEntity = new CVEntity(cvId, "user13");
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(FieldNotFoundException.class, () -> {
+            cvService.removeTag(cvId, "invalidField", 0);
+        });
+    }
+
+    @Test
+    void removeTag_indexOutOfBounds_throwsIndexNotFoundException() {
+        String cvId = "14";
+        CVEntity cvEntity = new CVEntity(cvId, "user14");
+        // no skills, so index 0 invalid
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cvEntity));
+
+        assertThrows(IndexNotFoundException.class, () -> {
+            cvService.removeTag(cvId, "skill", 0);
+        });
+    }
+
+    @Test
+    void removeTag_cvNotFound_throwsCVNotFoundException() {
+        String cvId = "missing";
+
+        when(cvRepository.findById(cvId)).thenReturn(Optional.empty());
+
+        assertThrows(CVNotFoundException.class, () -> {
+            cvService.removeTag(cvId, "skill", 0);
+        });
+    }
 }
