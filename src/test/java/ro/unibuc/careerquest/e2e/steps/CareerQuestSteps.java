@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import ro.unibuc.careerquest.e2e.util.ResponseResults;
 import ro.unibuc.careerquest.e2e.util.HeaderSetup;
 import ro.unibuc.careerquest.e2e.util.ResponseErrorHandler;
@@ -29,7 +30,7 @@ public class CareerQuestSteps {
     @Autowired
     protected RestTemplate restTemplate;
 
-    @Given("^the employer posts first job to /job$")
+    @When("^the employer posts first job to /job$")
     public void the_client_posts_a_job_to_job() throws JsonProcessingException {
         String url = "http://localhost:8080/job";
         Map<String, Object> jobPayload = new HashMap<>();

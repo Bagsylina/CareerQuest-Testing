@@ -5,7 +5,7 @@ plugins {
 	id 'info.solidsoft.pitest' version '1.15.0'
 	id 'java'
 	id 'jacoco'
-	
+
 }
 
 
@@ -113,7 +113,7 @@ task testE2E() {
 			args([
 					'--plugin', 'pretty',
 					'--plugin', 'html:target/cucumber-report.html',
-					'--glue', 'ro.unibuc.hello.e2e.steps',
+					'--glue', 'ro.unibuc.careerquest.e2e.steps',
 					'src/test/resources'])
 		}
 	}
@@ -127,8 +127,8 @@ asciidoctor {
 pitest {
     junit5PluginVersion = '1.2.2'
     pitestVersion = '1.18.2'
-    targetClasses = ['ro.unibuc.careerquest.*'] 
-    targetTests = ['ro.unibuc.careerquest.*'] 
+    targetClasses = ['ro.unibuc.careerquest.*']
+    targetTests = ['ro.unibuc.careerquest.*']
 	excludedTestClasses = ['ro.unibuc.careerquest.*IntegrationTest', 'ro.unibuc.careerquest.*IntegrationTesting', 'ro.unibuc.careerquest.SmokeTest']
     threads = 4
 	verbose = true

@@ -4,7 +4,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/careerQuest.feature", tags = "E2E")
+@CucumberOptions(features = "src/test/resources/", tags = "E2E")
 public class CareerQuestE2E {
 
 }
