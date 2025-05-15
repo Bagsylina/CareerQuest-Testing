@@ -2,13 +2,18 @@ package ro.unibuc.careerquest.dto;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Employer {
     private String id;
     private String name;
     private String email;
     private String phone;
     private String company;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate lastPaymentDate;
+
     private boolean premium;
 
     public Employer() {}
@@ -46,7 +51,7 @@ public class Employer {
         this.lastPaymentDate = lastPaymentDate;
     }
 
-    public boolean isPremium() {
+    public boolean getPremium() {
         return premium;
     }
 

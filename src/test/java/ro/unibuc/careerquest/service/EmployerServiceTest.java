@@ -166,7 +166,7 @@ public class EmployerServiceTest {
         Employer updatedEmployer = employerService.updatePayment(employerId);
 
         assertEquals("1", updatedEmployer.getId());
-        assertTrue(updatedEmployer.isPremium());
+        assertTrue(updatedEmployer.getPremium());
         assertEquals(LocalDate.now(), updatedEmployer.getLastPaymentDate());
     }
 

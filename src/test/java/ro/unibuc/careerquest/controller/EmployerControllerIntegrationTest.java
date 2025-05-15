@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -63,8 +65,8 @@ public class EmployerControllerIntegrationTest {
         for (Employer employer : employers)
             employerService.deleteEmployer(employer.getId());
 
-        Employer employer1 = new Employer(UUID.randomUUID().toString(), "Employer1", "employer1@email.com", "1234567890", "Tech Corp", LocalDate.now(), true);
-        Employer employer2 = new Employer(UUID.randomUUID().toString(), "Employer2", "employer2@email.com", "0987654321", "Finance Corp", LocalDate.now(), false);
+        Employer employer1 = new Employer("employer1", "Employer1", "employer1@email.com", "1234567890", "Tech Corp", LocalDate.now(), true);
+        Employer employer2 = new Employer("employer2", "Employer2", "employer2@email.com", "0987654321", "Finance Corp", LocalDate.now(), false);
 
         employerService.saveEmployer(employer1);
         employerService.saveEmployer(employer2);
@@ -80,7 +82,7 @@ public class EmployerControllerIntegrationTest {
 
     @Test
     public void testCreateEmployer() throws Exception {
-        Employer employer3 = new Employer(UUID.randomUUID().toString(), "Employer3", "employer3@email.com", "1122334455", "Retail Corp", LocalDate.now(), true);
+        Employer employer3 = new Employer("employer3", "Employer3", "employer3@email.com", "1122334455", "Retail Corp");
 
         mockMvc.perform(post("/employer")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,9 +94,12 @@ public class EmployerControllerIntegrationTest {
 
     @Test
     public void testUpdateEmployer() throws Exception {
-        Employer updatedEmployer = new Employer(UUID.randomUUID().toString(), "Updated Employer", "updated@email.com", "5544332211", "Updated Corp", LocalDate.now(), false);
+        MvcResult result = mockMvc.perform(get("/employer")).andReturn();
+        System.out.println(result.getResponse().getContentAsString());
 
-        mockMvc.perform(put("/employer/" + updatedEmployer.getId())
+        Employer updatedEmployer = new Employer("1", "Updated Employer", "updated@email.com", "5544332211", "Updated Corp");
+
+        mockMvc.perform(put("/employer/" + Long.toString(employerService.getLastId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(updatedEmployer)))
                 .andExpect(status().isOk())
@@ -104,7 +109,12 @@ public class EmployerControllerIntegrationTest {
 
     @Test
     public void testDeleteEmployer() throws Exception {
-        mockMvc.perform(delete("/employer/" + UUID.randomUUID().toString()))
+        mockMvc.perform(delete("/employer/" + Long.toString(employerService.getLastId())))
                 .andExpect(status().isOk());
+
+        mockMvc.perform(get("/employer"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.length()").value(1));
     }
 }

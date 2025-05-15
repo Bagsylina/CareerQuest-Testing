@@ -25,6 +25,8 @@ public class EmployerService {
     private static final String helloTemplate = "Hello, %s!";
     private static final String informationTemplate = "%s : %s!";
 
+    public Long getLastId() {return counter.get();}
+
     //list of all the employers
     public List<Employer> getAllEmployers() {
         List<EmployerEntity> entities = employerRepository.findAll();

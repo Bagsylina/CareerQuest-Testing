@@ -56,6 +56,8 @@ public class JobsService {
     private static final String informationTemplate = "%s : %s!";
     private static final int FREE_POST_LIMIT = 5;
 
+    public Long getLastId() {return counter.get();}
+
     public List<Job> getAllJobs() {
         List<JobEntity> entities = jobDatabase.findAll();
         return entities.stream()

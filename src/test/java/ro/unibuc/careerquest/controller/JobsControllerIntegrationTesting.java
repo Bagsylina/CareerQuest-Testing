@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -131,7 +132,7 @@ public class JobsControllerIntegrationTesting {
     public void testUpdateJob() throws Exception {
         JobContent job_content = new JobContent("Software Developer", "description", "Adobe", Arrays.asList("Java", "C#"), Arrays.asList("SWE"), Arrays.asList("Leadership", "Problem Solving"), 5000, "Romania");
 
-        mockMvc.perform(put("/job/1")
+        mockMvc.perform(put("/job/" + Long.toString(employerService.getLastId()))
             //.param("employerId", "1")
             .content(new ObjectMapper().writeValueAsString(job_content))
             .contentType(MediaType.APPLICATION_JSON))
@@ -143,21 +144,22 @@ public class JobsControllerIntegrationTesting {
         mockMvc.perform(get("/job"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$[0].title").value("Software Developer"))
-            .andExpect(jsonPath("$[0].abilities[1]").value("C#"));
+            .andExpect(jsonPath("$[1].title").value("Software Developer"))
+            .andExpect(jsonPath("$[1].abilities[1]").value("C#"));
     }
 
     @Test
     public void testDeleteJob() throws Exception {
-        mockMvc.perform(delete("/job/1"))
+        MvcResult result = mockMvc.perform(get("/job")).andReturn();
+        System.out.println(result.getResponse().getContentAsString());
+
+        mockMvc.perform(delete("/job/" + Long.toString(jobsService.getLastId())))
             .andExpect(status().isOk());
 
         mockMvc.perform(get("/job"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.length()").value(1))
-            .andExpect(jsonPath("$[0].title").value("QA Engineer"));
+            .andExpect(jsonPath("$[0].title").value("Senior Software Developer"));
     }
-
-
 }
