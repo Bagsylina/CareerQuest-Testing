@@ -46,11 +46,11 @@ public class UserSteps {
         executeGet("http://localhost:8080/users");
     }
 
-    @Given("^the client creates a user with username \"([^\"]*)\", email \"([^\"]*)\" and password \"([^\"]*)\"")
+    /*@Given("^the client creates a user with username \"([^\"]*)\", email \"([^\"]*)\" and password \"([^\"]*)\"")
     public void the_client_creates_user(String username, String email, String password) {
         UserCreation user = new UserCreation(username, password, email);
         executePost("http://localhost:8080/user", user);
-    }
+    }*/
 
     @Then("^the client receives status code of (\\d+)$")
     public void the_client_receives_status_code_of(int statusCode) throws Throwable {
@@ -81,7 +81,7 @@ public class UserSteps {
         });
     }
 
-    public void executePost(String url, Object body) throws JsonProcessingException {
+    /*public void executePost(String url, Object body) throws JsonProcessingException {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("Accept", "application/json");
@@ -97,5 +97,5 @@ public class UserSteps {
                 return new ResponseResults(response);
             }
         });
-    }
+    }*/
 }
