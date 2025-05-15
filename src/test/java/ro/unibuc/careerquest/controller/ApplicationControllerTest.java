@@ -1,3 +1,4 @@
+
 package ro.unibuc.careerquest.controller;
 
 import static org.junit.Assert.assertTrue;

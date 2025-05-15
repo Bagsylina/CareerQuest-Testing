@@ -154,7 +154,7 @@ class UserControllerTest {
         doThrow(new InvalidPasswordException())
             .when(userService).updateCredentials(eq(username), argThat(c -> {
                 String password = c.getPassword();
-                return password != null && 
+                return password != null &&
                     (password.length() < 8 ||
                     !password.matches(".*[A-Z].*") ||   // At least one uppercase
                     !password.matches(".*[a-z].*") ||   // At least one lowercase
@@ -187,7 +187,7 @@ class UserControllerTest {
             .andExpect(jsonPath("$.email").value("user1@email.com"));
     }
 
-    @Test 
+    @Test
     void test_updateUser() throws Exception {
         String username = "user1";
         User updatedUser = new User(username, "descriere", "Fabian", "Anghel", LocalDate.of(2003, 4, 2), "user1@email.com", null);
@@ -217,7 +217,7 @@ class UserControllerTest {
             .content("{\"username\": \"user1\", \"password\": \"Parola1@\", \"email\": \"user1@email.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
-        
+
         //then delete the user
         mockMvc.perform(delete("/user/{id}", username))
             .andExpect(status().isOk());

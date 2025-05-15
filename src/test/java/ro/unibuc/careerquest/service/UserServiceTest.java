@@ -35,8 +35,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 class UserServiceTest {
-    
-    @Mock 
+
+    @Mock
     private UserRepository userRepository;
 
     @Mock
@@ -57,9 +57,9 @@ class UserServiceTest {
     void test_getAllUsers() {
         //initialize users in database
         List<UserEntity> userEntities = Arrays.asList(new UserEntity("user1", "Parola1@", "user1@email.com"), new UserEntity("user2", "Parola1@", "user2@email.com"));
-        
+
         when(userRepository.findAll()).thenReturn(userEntities);
-        
+
         //get all users
         List<User> users = userService.getAllUsers();
 
@@ -76,9 +76,9 @@ class UserServiceTest {
         //initialize users in database
         String name = "Fabian";
         List<UserEntity> userEntities = Arrays.asList(new UserEntity("user1", "Parola1@", null, "Fabian", "Anghel", null, "user1@email.com", null));
-        
+
         when(userRepository.findByFullNameContaining(name)).thenReturn(userEntities);
-        
+
         //get all users with that name
         List<User> users = userService.getAllUsersByName(name);
 
@@ -125,10 +125,10 @@ class UserServiceTest {
         UserCreation badPassword4User = new UserCreation("user5", "Parola@@", "user5@email.com");
         UserCreation badPassword5User = new UserCreation("user6", "Parola11", "user6@email.com");
         UserCreation badEmailUser = new UserCreation("user7", "Parola1@", "bademail");
-        
+
         when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity("user1", "Parola1@", "user1@email.com"));
         when(userRepository.findById("usertaken")).thenReturn(Optional.of(userTakenEntity));
-        
+
         //create user
         User user = userService.createUser(userData);
 
@@ -160,11 +160,11 @@ class UserServiceTest {
         UserCreation badPassword4User = new UserCreation(username, "Parola@@", "user5@email.com");
         UserCreation badPassword5User = new UserCreation(username, "Parola11", "user6@email.com");
         UserCreation badEmailUser = new UserCreation(username, "Parola1@", "bademail");
-        
+
         when(userRepository.findById(username)).thenReturn(Optional.of(userEntity));
         when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
         when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity(username, "Parola1@", "new@email.com"));
-        
+
         //update user
         User user = userService.updateCredentials(username, userData);
 
@@ -189,19 +189,19 @@ class UserServiceTest {
         String username = "user1";
         String nonExistingUsername = "user2";
         UserEntity userEntity = new UserEntity(username, "Parola1@", "user1@email.com");
-        
+
         //initialize update data
         User userUpdate = new User() ;
         userUpdate.setBirthdate(LocalDate.of(2003,4,2));
         userUpdate.setFirstName("Fabian");
         userUpdate.setLastName("Anghel");
-        
+
         //database operations
         when(userRepository.findById(username)).thenReturn(Optional.of(userEntity));
         when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
-        when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity(username, "Parola1@", null, 
+        when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity(username, "Parola1@", null,
             "Fabian", "Anghel", LocalDate.of(2003, 4, 2), "user1@email.com", null));
-       
+
         //update user
         User user = userService.updateUser(username, userUpdate);
 
@@ -225,7 +225,7 @@ class UserServiceTest {
         String username = "user1";
         String nonExistingUsername = "user2";
         UserEntity userEntity = new UserEntity(username, "Parola1@", "user1@email.com");
-        
+
         when(userRepository.findById(username)).thenReturn(Optional.of(userEntity));
         when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
 
@@ -244,11 +244,11 @@ class UserServiceTest {
         String nonExistingUsername = "user2";
         UserEntity userEntity = new UserEntity(username, "Parola1@", "user1@email.com");
         List<CVEntity> cvEntities = Arrays.asList(new CVEntity("1", username), new CVEntity("2", username));
-        
+
         when(userRepository.findById(username)).thenReturn(Optional.of(userEntity));
         when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
         when(cvRepository.findByUserId(username)).thenReturn(cvEntities);
-        
+
         //get cvs
         List<CV> cvs = userService.getCVs(username);
 
@@ -271,11 +271,11 @@ class UserServiceTest {
         UserEntity userEntity = new UserEntity(username, "Parola1@", "user1@email.com");
         CVCreation cvData = new CVCreation("description", "achievements");
         CVEntity cvEntity = new CVEntity("1", username, "description", "achievements");
-        
+
         when(userRepository.findById(username)).thenReturn(Optional.of(userEntity));
         when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
         when(cvRepository.save(any(CVEntity.class))).thenReturn(cvEntity);
-        
+
         //add cv
         CV cv = userService.addCV(username, cvData);
 
@@ -295,9 +295,9 @@ class UserServiceTest {
         //initialize applications in database
         String username = "user1";
         List<ApplicationEntity> applicationEntities = Arrays.asList(new ApplicationEntity("1", "1", username, "1"), new ApplicationEntity("2", "2", username, "1"));
-        
+
         when(applicationRepository.findByUsername(username)).thenReturn(applicationEntities);
-        
+
         //get all of user's applications
         List<ApplicationEntity> applications = userService.getApplications(username);
 

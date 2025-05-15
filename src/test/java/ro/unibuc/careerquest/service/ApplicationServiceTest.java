@@ -1,3 +1,4 @@
+
 package ro.unibuc.careerquest.service;
 
 import org.junit.jupiter.api.BeforeEach;
