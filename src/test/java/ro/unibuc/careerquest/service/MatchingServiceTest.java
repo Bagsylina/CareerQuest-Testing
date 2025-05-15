@@ -89,6 +89,139 @@ public class MatchingServiceTest {
 
     }
 
+    //tests generated with chatGPT
+
+    @Test
+    void match_successSenior_withSkillsAndTools() throws Exception {
+        String jobId = "job1";
+        String cvId = "cv1";
+
+        JobEntity job = new JobEntity();
+        job.setId(jobId);
+        job.setTitle("Senior Developer");
+        job.setAbilities(List.of("Java", "Spring"));  // size = 2
+        job.setDomains(List.of("Backend", "Microservices")); // size = 2
+
+        CVEntity cv = new CVEntity(cvId, "user1");
+        cv.addExperience(new CVComponent());
+        cv.addExperience(new CVComponent());
+        cv.addExperience(new CVComponent()); // 3 experiences → matchesExperience = 1
+        cv.addSkill("Java");    // matches 1 of 2 abilities
+        cv.addSkill("Python");  // no match
+        cv.addTool("Backend");  // matches 1 of 2 domains
+        cv.addTool("Frontend"); // no match
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cv));
+
+        double score = matchingService.match(jobId, cvId);
+
+        // Integer division mimic:
+        double skillMatch = (1 / 2);  // integer division -> 0
+        double toolMatch = (1 / 2);   // integer division -> 0
+        double expected = 0.33 * 1 + 0.33 * skillMatch + 0.33 * toolMatch;
+
+        assertEquals(expected, score, 0.0001);
+    }
+
+    @Test
+    void match_successJunior_noToolsMatched() throws Exception {
+        String jobId = "job2";
+        String cvId = "cv2";
+
+        JobEntity job = new JobEntity();
+        job.setId(jobId);
+        job.setTitle("Junior Analyst");
+        job.setAbilities(List.of("Excel"));
+        job.setDomains(List.of("Data"));
+
+        CVEntity cv = new CVEntity(cvId, "user2");
+        cv.addEducation(new CVComponent());
+        cv.addSkill("Excel");
+        cv.addTool("OtherTool");
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cv));
+
+        double score = matchingService.match(jobId, cvId);
+
+        double expected = 0.33 * 1 + 0.33 * 1 + 0.33 * 0;
+        assertEquals(expected, score, 0.0001);
+    }
+
+    @Test
+    void match_successIntern_withProjectsAndExtracurricular() throws Exception {
+        String jobId = "job3";
+        String cvId = "cv3";
+
+        JobEntity job = new JobEntity();
+        job.setId(jobId);
+        job.setTitle("Intern Researcher");
+        // To avoid division by zero in skillMatch/toolMatch, add at least 1 dummy ability/domain
+        job.setAbilities(List.of("DummyAbility"));
+        job.setDomains(List.of("DummyDomain"));
+
+        CVEntity cv = new CVEntity(cvId, "user3");
+        // No education:
+        // According to logic: education.size() == 0 && projects.size() > 0 && extracurricular.size() > 0 → matchesExperience = 1
+        cv.addProject(new CVComponent());
+        cv.addExtracurricular(new CVComponent());
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cv));
+
+        double score = matchingService.match(jobId, cvId);
+
+        double skillMatch = 0.0 / 1;  // 0 because no skills in CV
+        double toolMatch = 0.0 / 1;   // 0 because no tools in CV
+        double expected = 0.33 * 1 + 0.33 * skillMatch + 0.33 * toolMatch;
+
+        assertEquals(expected, score, 0.0001);
+    }
+
+    @Test
+    void match_unknownPosition_defaultsMatchesExperience() throws Exception {
+        String jobId = "job4";
+        String cvId = "cv4";
+
+        JobEntity job = new JobEntity();
+        job.setId(jobId);
+        job.setTitle("Manager Something");
+        job.setAbilities(List.of("Skill1"));
+        job.setDomains(List.of("Domain1"));
+
+        CVEntity cv = new CVEntity(cvId, "user4");
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
+        when(cvRepository.findById(cvId)).thenReturn(Optional.of(cv));
+
+        double score = matchingService.match(jobId, cvId);
+
+        double expected = 0.33 * 1 + 0.33 * 0 + 0.33 * 0;
+        assertEquals(expected, score, 0.0001);
+    }
+
+    @Test
+    void match_throwsJobNotFoundException() {
+        String jobId = "missingJob";
+        String cvId = "cv";
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.empty());
+
+        assertThrows(JobNotFoundException.class, () -> matchingService.match(jobId, cvId));
+    }
+
+    @Test
+    void match_throwsCVNotFoundException() {
+        String jobId = "job";
+        String cvId = "missingCV";
+
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(new JobEntity()));
+        when(cvRepository.findById(cvId)).thenReturn(Optional.empty());
+
+        assertThrows(CVNotFoundException.class, () -> matchingService.match(jobId, cvId));
+    }
+
     /*@Test
     public void test_recommend() throws UserNotFoundException, JobNotFoundException, CVNotFoundException {
         String cvId = "1";
