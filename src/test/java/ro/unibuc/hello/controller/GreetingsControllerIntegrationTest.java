@@ -1,4 +1,4 @@
-// package ro.unibuc.hello.controller;
+/*package ro.unibuc.hello.controller;
 
 // import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -131,10 +131,10 @@
 //         mockMvc.perform(delete("/greetings/1"))
 //             .andExpect(status().isOk());
 
-//         mockMvc.perform(get("/greetings"))
-//                 .andExpect(status().isOk())
-//                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                 .andExpect(jsonPath("$.length()").value(1))
-//                 .andExpect(jsonPath("$[0].content").value("Hello 2"));
-//     }
-// }
+        mockMvc.perform(get("/greetings"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].content").value("Hello 2"));
+    }
+}

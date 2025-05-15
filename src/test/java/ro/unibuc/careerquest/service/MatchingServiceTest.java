@@ -89,6 +89,12 @@ public class MatchingServiceTest {
 
     }
 
+    /*@Test
+    public void test_recommend() throws UserNotFoundException, JobNotFoundException, CVNotFoundException {
+        String cvId = "1";
+        JobEntity job_entity1 = new JobEntity("1", "Senior Software Engineer", "description", 
+                                "Adobe", Arrays.asList("Java", "C"), Arrays.asList("SWE"),
+                                Arrays.asList("Leadership", "Problem Solving"), 5000, "Romania");
     // @Test
     // public void test_recommend() throws UserNotFoundException, JobNotFoundException, CVNotFoundException {
     //     String cvId = "1";
@@ -115,9 +121,9 @@ public class MatchingServiceTest {
     //     // Act
     //     List<Job> ordered_jobs = matchingService.recommend(cvId);
 
-    //     //Assert
-    //     assertEquals("2", ordered_jobs.get(0).getId());
-    //     assertEquals("1", ordered_jobs.get(1).getId());
-    // }
+        //Assert
+        assertEquals("2", ordered_jobs.get(0).getId());
+        assertEquals("1", ordered_jobs.get(1).getId());
+    }*/
     
 }

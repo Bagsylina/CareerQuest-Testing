@@ -15,6 +15,7 @@ import ro.unibuc.careerquest.dto.Job;
 import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.service.JobsService;
+import ro.unibuc.careerquest.data.JobEntity;
 import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 import ro.unibuc.careerquest.exception.AlreadyAppliedException;

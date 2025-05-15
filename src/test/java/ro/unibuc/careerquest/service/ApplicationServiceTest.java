@@ -25,6 +25,7 @@ import ro.unibuc.careerquest.exception.CVNotFoundException;
 import ro.unibuc.careerquest.exception.EntityNotFoundException;
 import ro.unibuc.careerquest.exception.UserNotFoundException;
 
+import java.util.Arrays;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

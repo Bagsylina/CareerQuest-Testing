@@ -68,13 +68,22 @@ dependencyManagement {
 test {
 	outputs.dir snippetsDir
 	useJUnitPlatform {
-		excludeTags ("IntegrationTest", "E2E")
+		excludeTags ("IntegrationTest", "E2E", "SmokeTest")
 	}
 	finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
 	dependsOn test
+}
+
+task testSmoke(type: Test) {
+	outputs.dir snippetsDir
+	outputs.upToDateWhen { false }
+
+	useJUnitPlatform {
+		includeTags "SmokeTest"
+	}
 }
 
 task testIT(type: Test) {
