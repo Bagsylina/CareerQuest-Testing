@@ -1,3 +1,7 @@
+### Link documentatie:
+https://docs.google.com/document/d/1Kn3Zw6wy6oKpvFIanaptwIiHvoa2Obkq5cowW1lw9DY/edit?tab=t.0
+
+
 ### Descrierea aplicației 	
 
 Aplicația noastra se numește ‘CareerQuest’ si este dezvoltată în **Java** folosind **Spring Boot,** un framework  fiind partea de ‘backend’ al unei platforme de găsit joburi - unde angajatorii pot posta joburi, si selecta dintre aplicanți, iar userii își pot crea CV-uri, căuta și aplica la joburi, și pot primi de asemenea recomandări de locuri de muncă potrivite lor.  
