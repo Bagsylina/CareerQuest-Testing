@@ -24,6 +24,8 @@ import ro.unibuc.careerquest.e2e.util.ResponseResults;
 import ro.unibuc.careerquest.e2e.util.HeaderSetup;
 import ro.unibuc.careerquest.e2e.util.ResponseErrorHandler;
 
+@CucumberContextConfiguration
+@SpringBootTest()
 public class CareerQuestSteps {
     public static ResponseResults latestResponse = null;
 
