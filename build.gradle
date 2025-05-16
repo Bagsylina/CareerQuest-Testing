@@ -129,7 +129,9 @@ pitest {
     pitestVersion = '1.18.2'
     targetClasses = ['ro.unibuc.careerquest.*']
     targetTests = ['ro.unibuc.careerquest.*']
-	excludedTestClasses = ['ro.unibuc.careerquest.*IntegrationTest', 'ro.unibuc.careerquest.*IntegrationTesting', 'ro.unibuc.careerquest.SmokeTest']
+	excludedTestClasses = ['ro.unibuc.careerquest.*IntegrationTest',
+							'ro.unibuc.careerquest.*IntegrationTesting',
+							'ro.unibuc.careerquest.SmokeTest']
     threads = 4
 	verbose = true
 }
