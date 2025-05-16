@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +21,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.spring.CucumberContextConfiguration;
 import ro.unibuc.careerquest.e2e.util.ResponseResults;
 import ro.unibuc.careerquest.e2e.util.HeaderSetup;
 import ro.unibuc.careerquest.e2e.util.ResponseErrorHandler;
