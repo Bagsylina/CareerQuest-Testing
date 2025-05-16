@@ -3,7 +3,7 @@
 Aplicația noastra se numește ‘CareerQuest’ si este dezvoltată în **Java** folosind **Spring Boot,** un framework  fiind partea de ‘backend’ al unei platforme de găsit joburi - unde angajatorii pot posta joburi, si selecta dintre aplicanți, iar userii își pot crea CV-uri, căuta și aplica la joburi, și pot primi de asemenea recomandări de locuri de muncă potrivite lor.  
 	
 
-### Diagrame![][image1]
+### Diagrame
 
 ### Tipuri de teste, tool-uri folosite și configurarea lor
 
@@ -17,10 +17,10 @@ Aplicația noastra se numește ‘CareerQuest’ si este dezvoltată în **Java*
 ##### 	**JUnit** 
 
 Folosit pentru declararea părților de test, cum ar fi:  
-	 \- Pentru asertii: [**\[1\]**](#bookmark=id.lnrzq9nss4rq)  
-	import static org.junit.Assert.assertTrue;  
-import static org.junit.jupiter.api.Assertions.assertThrows;  
-![][image2]  
+	 Pentru asertii: [**\[1\]**](#bookmark=id.lnrzq9nss4rq)  
+	 \- import static org.junit.Assert.assertTrue;  
+	 \- import static org.junit.jupiter.api.Assertions.assertThrows;  
+
 	 \- Pentru setup-ul testelor în cadrul unei clase de test:  
 import org.junit.jupiter.api.BeforeEach;  
 ![][image3]
