@@ -154,15 +154,15 @@ Am făcut acest setup in fișierul nostru de Gradle pentru a executa mutații do
 
 #### Raport de coverage pentru **testele unitare** folosind **Jacoco** 
 
-	<img width="631" alt="Screenshot 2025-05-16 at 17 41 41" src="https://github.com/user-attachments/assets/640d4cc8-6911-4810-989e-166d48c3d991" />
+<img width="631" alt="Screenshot 2025-05-16 at 17 41 41" src="https://github.com/user-attachments/assets/640d4cc8-6911-4810-989e-166d48c3d991" />
 
 #### Rularea **testelor unitare**, de **integrare** si **smoke tests** automat prin **GitHub Actions**
 
-	<img width="464" alt="Screenshot 2025-05-16 at 17 41 45" src="https://github.com/user-attachments/assets/e6afe6fd-d27b-40ab-8da6-eadc810dcff6" />
+<img width="464" alt="Screenshot 2025-05-16 at 17 41 45" src="https://github.com/user-attachments/assets/e6afe6fd-d27b-40ab-8da6-eadc810dcff6" />
 
 
 #### Raport **mutanti**
-	<img width="640" alt="Screenshot 2025-05-16 at 17 41 55" src="https://github.com/user-attachments/assets/63aa1c17-8d6f-4e67-9ca1-dbb6d8a087e1" />
+<img width="640" alt="Screenshot 2025-05-16 at 17 41 55" src="https://github.com/user-attachments/assets/63aa1c17-8d6f-4e67-9ca1-dbb6d8a087e1" />
 
 
 ### 
