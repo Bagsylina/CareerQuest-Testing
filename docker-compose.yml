@@ -1,6 +1,7 @@
 services:
   hello:
-    image: bagsylina/hello-img:${IMAGE_TAG}
+    image: hello-img
+    build: .
     ports:
       - 8080:8080
       # Port for debug
