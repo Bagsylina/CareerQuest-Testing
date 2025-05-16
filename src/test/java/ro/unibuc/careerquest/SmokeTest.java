@@ -3,8 +3,6 @@ package ro.unibuc.careerquest;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -58,7 +56,7 @@ class SmokeTest {
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
-        final String MONGO_URL = "mongodb://host.docker.internal:";
+        final String MONGO_URL = "mongodb://localhost:";
         final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27017));
 
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
